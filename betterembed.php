@@ -1,5 +1,12 @@
 <?php
 /**
+ * Better Embed
+ *
+ * @package           BetterEmbed
+ * @copyright         2020 Better Embed
+ * @license           GPL-3.0-or-later
+ *
+ * @wordpress-plugin
  * Plugin Name:       Better Embed
  * Plugin URI:        https://www.acolono.com/betterembed
  * Description:       Include the essential content of any website or service such as Facebook posts, Twitter tweets, Instagram posts, YouTube videos, WordPress Blogposts etc. into your own page without any extra effort.
@@ -27,4 +34,60 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Your code starts here.
+defined( 'ABSPATH' ) || exit;
+
+add_action( 'init', 'betterembed_load_textdomain' );
+
+function betterembed_load_textdomain() {
+	load_plugin_textdomain( 'betterembed', false, basename( __DIR__ ) . '/languages' );
+}
+
+function betterembed_register_block() {
+
+	if ( ! function_exists( 'register_block_type' ) ) {
+		return;
+	}
+
+	// Automatically load dependencies and version.
+	$assetFile = include(__DIR__ . '/build/index.asset.php');
+
+	wp_register_script(
+		'betterembed',
+		plugins_url( 'build/index.js', __FILE__ ),
+		$assetFile['dependencies'],
+		$assetFile['version']
+	);
+
+	/*
+	wp_register_style(
+		'betterembed-editor',
+		plugins_url( 'editor.css', __FILE__ ),
+		array( 'wp-edit-blocks' ),
+		filemtime( plugin_dir_path( __FILE__ ) . 'editor.css' )
+	);
+
+	wp_register_style(
+		'betterembed',
+		plugins_url( 'style.css', __FILE__ ),
+		[],
+		filemtime( plugin_dir_path( __FILE__ ) . 'style.css' )
+	);
+	*/
+
+	register_block_type( 'betterembed/betterembed', array(
+		//'style' => 'betterembed',
+		//'editor_style' => 'betterembed-editor',
+		'editor_script' => 'betterembed',
+	) );
+
+	if ( function_exists( 'wp_set_script_translations' ) ) {
+		/**
+		 * May be extended to wp_set_script_translations( 'my-handle', 'my-domain',
+		 * plugin_dir_path( MY_PLUGIN ) . 'languages' ) ). For details see
+		 * https://make.wordpress.org/core/2018/11/09/new-javascript-i18n-support-in-wordpress/
+		 */
+		wp_set_script_translations( 'betterembed', 'betterembed' );
+	}
+
+}
+add_action( 'init', 'betterembed_register_block' );
