@@ -1,0 +1,68 @@
+version: '3.3'
+
+services:
+
+  scripts:
+    image: node:13
+    user: 1000:1000
+    working_dir: /usr/var/app
+    volumes:
+      - .:/usr/var/app/
+    command: npm start
+
+  composer:
+    image: composer
+    user: 1000:1000
+    volumes:
+      - .:/app
+
+  wordpress:
+    image: wordpress:latest
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wp
+      WORDPRESS_DB_PASSWORD: wp
+      WORDPRESS_DB_NAME: wp
+      WORDPRESS_DEBUG: 1
+      WORDPRESS_CONFIG_EXTRA: |
+        define('SCRIPT_DEBUG', true );
+    volumes:
+      - wordpress:/var/www/html
+      - ./:/var/www/html/wp-content/plugins/betterembed
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: wp
+      MYSQL_USER: wp
+      MYSQL_PASSWORD: wp
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - db:/var/lib/mysql
+
+  wp:
+    image: wordpress:cli
+    user: 1000:1000
+    working_dir: /var/www/html/wp-content/plugins/betterembed
+    volumes:
+      - wordpress:/var/www/html
+      - ./:/var/www/html/wp-content/plugins/betterembed
+    depends_on:
+      - wordpress
+      - db
+
+  tests:
+    image: php:7.4-cli
+    user: 1000:1000
+    working_dir: /usr/var/app
+    volumes:
+      - .:/usr/var/app
+    command: [ "./vendor/bin/phpunit", "tests" ]
+
+volumes:
+  wordpress:
+  db:

@@ -1,0 +1,34 @@
+{
+    "name": "betterembed/wordpress-betterembed",
+    "description": "BetterEmbed integration for WordPress.",
+    "type": "wordpress-plugin",
+    "license": "GPL-3.0-or-later",
+    "homepage": "https://github.com/betterembed/wordpress-betterembed",
+    "authors": [
+        {
+            "name": "Thomas Kräftner",
+            "email": "thomas@kraftner.com",
+            "homepage": "https://kraftner.com",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/betterembed/wordpress-betterembed/issues",
+        "source": "https://github.com/betterembed/wordpress-betterembed",
+        "docs": "https://acolono.gitbook.io/betterembed/"
+    },
+    "require" : {
+        "php": ">=7.2",
+        "composer/installers": "~1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9",
+        "wp-coding-standards/wpcs": "^2.3",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "BetterEmbed\\WordPress\\": "src/"
+        }
+    }
+}
