@@ -1,0 +1,19 @@
+FROM alpine
+
+RUN apk add --no-cache --virtual .persistent-deps \
+		ca-certificates \
+		git \
+		# https://github.com/docker-library/php/issues/494
+		libressl
+
+# Download XDebug Extension
+RUN git clone https://github.com/xdebug/xdebug.git -b xdebug_2_9 /usr/src/php/ext/xdebug && rm -rf /usr/src/php/ext/xdebug/.git;
+
+########################################################################
+
+FROM wordpress:latest
+
+#XDebug
+COPY --from=0 /usr/src/php/ext/xdebug /usr/src/php/ext/xdebug
+RUN docker-php-ext-install -j$(nproc) xdebug >/dev/null 2>&1
+COPY xdebug.ini /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
