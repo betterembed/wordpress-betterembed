@@ -4,6 +4,7 @@ import ServerSideRender from '@wordpress/server-side-render';
 import EmbedControls from './embed-controls';
 import EmbedPlaceholder from './embed-placeholder';
 import icon from './icon';
+import { fallback } from './util';
 
 export default class BetterEmbed extends Component {
 
@@ -11,6 +12,7 @@ export default class BetterEmbed extends Component {
 		super(...arguments);
 		this.switchBackToURLInput = this.switchBackToURLInput.bind( this );
 		this.setUrl = this.setUrl.bind( this );
+		this.fallback = this.fallback.bind( this );
 		this.state = {
 			editingURL: false,
 			url: this.props.attributes.url,
@@ -31,6 +33,13 @@ export default class BetterEmbed extends Component {
 		setAttributes( { url } );
 	}
 
+	fallback( url, onReplace ) {
+		const link = <a href={ url }>{ url }</a>;
+		onReplace(
+			createBlock( 'core/paragraph', { content: renderToString( link ) } )
+		);
+	}
+
 	render() {
 		const { attributes } = this.props;
 		const { url, editingURL } = this.state;
@@ -38,17 +47,15 @@ export default class BetterEmbed extends Component {
 		if ( ! attributes.url || editingURL ) {
 
 			return (
-				<div>
-					<EmbedPlaceholder
-						icon={ icon }
-						label={ 'Better Embed' }
-						onSubmit={ this.setUrl }
-						value={ url }
-						onChange={ ( event ) =>
-							this.setState( { url: event.target.value } )
-						}
-					/>
-				</div>
+				<EmbedPlaceholder
+					icon={ icon }
+					label={ 'Better Embed' }
+					onSubmit={ this.setUrl }
+					value={ url }
+					onChange={ ( event ) =>
+						this.setState( { url: event.target.value } )
+					}
+				/>
 			);
 
 		}
@@ -62,6 +69,24 @@ export default class BetterEmbed extends Component {
 				<ServerSideRender
 					block="betterembed/betterembed"
 					attributes={ attributes }
+					EmptyResponsePlaceholder={
+						( { className } ) => {
+							return (
+								<EmbedPlaceholder
+									icon={ icon }
+									label={ 'Better Embed' }
+									onSubmit={ this.setUrl }
+									value={ url }
+									cannotEmbed={ true }
+									onChange={ ( event ) =>
+										this.setState( { url: event.target.value } )
+									}
+									tryAgain={ this.setUrl }
+									fallback={ () => fallback( url, this.props.onReplace ) }
+								/>
+							);
+						}
+					}
 				/>
 			</>
 		);

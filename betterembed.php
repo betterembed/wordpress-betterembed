@@ -90,10 +90,15 @@ function betterembed_register_block() {
 
 			$body = json_decode(wp_remote_retrieve_body( $request ), true );
 
+			//sleep(2);
+
+			//We can handle an empty block differently in frontend. Somewhat hacky but hey...
+			//return '';
+
 			return sprintf(
 				'<div class="wp-block-betterembed-betterembed %s"><h3>%s</h3><p>%s</p></div>',
 				esc_attr($attributes['className']),
-				esc_html($body['title']),
+				!empty($body['title'])?esc_html($body['title']):'',
 				esc_html($body['body'])
 			);
 
