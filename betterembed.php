@@ -78,6 +78,40 @@ function betterembed_register_block() {
 		//'style' => 'betterembed',
 		//'editor_style' => 'betterembed-editor',
 		'editor_script' => 'betterembed',
+		'render_callback' => function ( $attributes, $content ) {
+
+			$url = 'https://api.betterembed.com/api/v0/item';
+			$url = add_query_arg(
+				array( 'url' => $attributes['url'] ),
+				$url
+			);
+
+			$request = wp_remote_get( $url );
+
+			$body = json_decode(wp_remote_retrieve_body( $request ), true );
+
+			return sprintf(
+				'<div class="wp-block-betterembed-betterembed %s"><h3>%s</h3><p>%s</p></div>',
+				esc_attr($attributes['className']),
+				esc_html($body['title']),
+				esc_html($body['body'])
+			);
+
+		},
+		'attributes' => [
+			'align' => [
+				'type' => 'string',
+				'default' => '',
+			],
+			'className' => [
+				'type' => 'string',
+				'default' => '',
+			],
+			'url' => [
+				'type' => 'string',
+				'default' => '',
+			],
+		],
 	) );
 
 	if ( function_exists( 'wp_set_script_translations' ) ) {
