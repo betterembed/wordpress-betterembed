@@ -5,8 +5,17 @@
   "private": true,
   "main": "build/index.js",
   "devDependencies": {
+    "@wordpress/browserslist-config": "^2.6.0",
     "@wordpress/icons": "^2.0.0",
-    "@wordpress/scripts": "^9.1.0"
+    "@wordpress/scripts": "^9.1.0",
+    "autoprefixer": "^9.8.0",
+    "css-loader": "^3.5.3",
+    "extract-loader": "^5.0.1",
+    "file-loader": "^6.0.0",
+    "node-sass": "^4.14.1",
+    "postcss-cli": "^7.1.1",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^8.0.2"
   },
   "scripts": {
     "build": "wp-scripts build",
@@ -22,5 +31,8 @@
     "start": "wp-scripts start",
     "test:e2e": "wp-scripts test-e2e",
     "test:unit": "wp-scripts test-unit-js"
-  }
+  },
+  "browserslist": [
+    "extends @wordpress/browserslist-config"
+  ]
 }

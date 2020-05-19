@@ -41,8 +41,8 @@ class Block implements Service {
 		register_block_type(
 			$this->plugin->namespace('embed'),
 			array(
-			//'style' => $this->plugin->prefix('style'),
-			//'editor_style' => $this->plugin->prefix('editor'),
+			'style' => $this->plugin->prefix('style'),
+			'editor_style' => $this->plugin->prefix('editor'),
 			'editor_script' => $this->plugin->prefix('editor'),
 			'render_callback' => function ( $attributes, $content ) {
 				if( empty($attributes['url']) || filter_var($attributes['url'], FILTER_VALIDATE_URL) === FALSE){
