@@ -29,7 +29,8 @@
     },
     "autoload": {
         "psr-4": {
-            "BetterEmbed\\WordPress\\": "src/"
-        }
+            "BetterEmbed\\WordPress\\": "inc/"
+        },
+        "files": ["inc/functions.php"]
     }
 }

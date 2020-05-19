@@ -36,97 +36,29 @@
 
 defined( 'ABSPATH' ) || exit;
 
-add_action( 'init', 'betterembed_load_textdomain' );
+$autoloader = __DIR__ . '/vendor/autoload.php';
+if ( ! file_exists( $autoloader ) ) {
+	return false;
+}
 
-function betterembed_load_textdomain() {
+/** @noinspection PhpIncludeInspection */
+include_once $autoloader;
+
+function betterembed_init(){
+
+	$plugin = new \BetterEmbed\WordPress\Plugin( __FILE__, 'betterembed');
+	$plugin->init(
+		array(
+			new \BetterEmbed\WordPress\Service\Assets(),
+			new \BetterEmbed\WordPress\Service\Block(
+				new \BetterEmbed\WordPress\Api\Api( 'https://api.betterembed.com/api/v0/item' ),
+				new \BetterEmbed\WordPress\View\TemplateView( __DIR__ . '/templates' )
+			)
+		)
+	);
+
 	load_plugin_textdomain( 'betterembed', false, basename( __DIR__ ) . '/languages' );
-}
-
-function betterembed_register_block() {
-
-	if ( ! function_exists( 'register_block_type' ) ) {
-		return;
-	}
-
-	// Automatically load dependencies and version.
-	$assetFile = include(__DIR__ . '/build/index.asset.php');
-
-	wp_register_script(
-		'betterembed',
-		plugins_url( 'build/index.js', __FILE__ ),
-		$assetFile['dependencies'],
-		$assetFile['version']
-	);
-
-	/*
-	wp_register_style(
-		'betterembed-editor',
-		plugins_url( 'editor.css', __FILE__ ),
-		array( 'wp-edit-blocks' ),
-		filemtime( plugin_dir_path( __FILE__ ) . 'editor.css' )
-	);
-
-	wp_register_style(
-		'betterembed',
-		plugins_url( 'style.css', __FILE__ ),
-		[],
-		filemtime( plugin_dir_path( __FILE__ ) . 'style.css' )
-	);
-	*/
-
-	register_block_type( 'betterembed/betterembed', array(
-		//'style' => 'betterembed',
-		//'editor_style' => 'betterembed-editor',
-		'editor_script' => 'betterembed',
-		'render_callback' => function ( $attributes, $content ) {
-
-			$url = 'https://api.betterembed.com/api/v0/item';
-			$url = add_query_arg(
-				array( 'url' => $attributes['url'] ),
-				$url
-			);
-
-			$request = wp_remote_get( $url );
-
-			$body = json_decode(wp_remote_retrieve_body( $request ), true );
-
-			//sleep(2);
-
-			//We can handle an empty block differently in frontend. Somewhat hacky but hey...
-			//return '';
-
-			return sprintf(
-				'<div class="wp-block-betterembed-betterembed %s"><h3>%s</h3><p>%s</p></div>',
-				esc_attr($attributes['className']),
-				!empty($body['title'])?esc_html($body['title']):'',
-				esc_html($body['body'])
-			);
-
-		},
-		'attributes' => [
-			'align' => [
-				'type' => 'string',
-				'default' => '',
-			],
-			'className' => [
-				'type' => 'string',
-				'default' => '',
-			],
-			'url' => [
-				'type' => 'string',
-				'default' => '',
-			],
-		],
-	) );
-
-	if ( function_exists( 'wp_set_script_translations' ) ) {
-		/**
-		 * May be extended to wp_set_script_translations( 'my-handle', 'my-domain',
-		 * plugin_dir_path( MY_PLUGIN ) . 'languages' ) ). For details see
-		 * https://make.wordpress.org/core/2018/11/09/new-javascript-i18n-support-in-wordpress/
-		 */
-		wp_set_script_translations( 'betterembed', 'betterembed' );
-	}
 
 }
-add_action( 'init', 'betterembed_register_block' );
+
+add_action( 'init', 'betterembed_init' );
