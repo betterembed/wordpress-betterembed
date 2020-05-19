@@ -8,6 +8,8 @@ use BetterEmbed\WordPress\Api\Api;
 use BetterEmbed\WordPress\Container;
 use BetterEmbed\WordPress\Plugin;
 use BetterEmbed\WordPress\View\TemplateView;
+use function BetterEmbed\WordPress\be_reset_item_data;
+use function BetterEmbed\WordPress\be_setup_item_data;
 
 class Block implements Service {
 
@@ -37,16 +39,20 @@ class Block implements Service {
 		}
 
 		register_block_type(
-			$this->plugin->namespace('betterembed'),
+			$this->plugin->namespace('embed'),
 			array(
 			//'style' => $this->plugin->prefix('style'),
 			//'editor_style' => $this->plugin->prefix('editor'),
 			'editor_script' => $this->plugin->prefix('editor'),
 			'render_callback' => function ( $attributes, $content ) {
-				Container::setCurrentItem(
-					$this->api->getItem($attributes['url'])
-				);
-				return $this->view->render( $this->plugin->namespace() . '.php' );
+				if( empty($attributes['url']) || filter_var($attributes['url'], FILTER_VALIDATE_URL) === FALSE){
+					return $this->view->render( 'error.php' );
+				};
+
+				be_setup_item_data( $this->api->getItem( $attributes['url'] ) );
+				$html = $this->view->render( $this->plugin->namespace() . '.php' );
+				be_reset_item_data();
+				return $html;
 			},
 			'attributes' => array(
 				'align' => array(

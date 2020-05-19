@@ -67,7 +67,7 @@ export default class BetterEmbed extends Component {
 					switchBackToURLInput={ this.switchBackToURLInput }
 				/>
 				<ServerSideRender
-					block="betterembed/betterembed"
+					block="betterembed/embed"
 					attributes={ attributes }
 					EmptyResponsePlaceholder={
 						( { className } ) => {
