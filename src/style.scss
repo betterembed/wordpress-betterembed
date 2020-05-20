@@ -1,0 +1,117 @@
+/* For naming conventions see https://github.com/WordPress/gutenberg/blob/master/docs/contributors/coding-guidelines.md#naming */
+
+$betterembed-icon-size: 1.3em !default;
+$betterembed-content-margin: 15px !default;
+
+.wp-block-betterembed-embed {
+
+	$be_root: &;
+
+	// For absolutely positioned dialog.
+	position: relative;
+
+	&__top {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+	}
+
+	&__provider {
+		word-break: break-word;
+		hyphens: auto;
+		flex-grow: 1;
+	}
+
+	// Nesting to trump theme styling
+	& &__switch {
+		cursor: pointer;
+		padding: ($betterembed-icon-size/2);
+		padding-right: 1.5 * $betterembed-icon-size;
+		background-color: transparent;
+		background-image: url('../img/betterembed-logo.svg');
+		background-position: right center;
+		background-repeat: no-repeat;
+		background-size: $betterembed-icon-size $betterembed-icon-size;
+		border: 0;
+
+		color: inherit;
+		font-weight: normal;
+		text-transform: none;
+
+		&:nth-child(2):last-child {
+			margin-left: 0.5em;
+		}
+	}
+
+	&__switch-hide {
+		display: none;
+	}
+
+	&__switch-show {
+		display: block;
+	}
+
+	&.is-betterembed-remote-visible {
+
+		#{$be_root}__switch-hide,
+		#{$be_root}__embed {
+			display: block;
+		}
+
+		#{$be_root}__switch-show,
+		#{$be_root}__body {
+			display: none;
+		}
+
+	}
+
+	&__dialog {
+		display: none;
+	}
+
+	&__body {
+		display: flex;
+		flex-direction: column;
+
+		> :last-child {
+			margin-bottom: $betterembed-content-margin;
+		}
+
+	}
+
+	// Nesting to trump theme styling
+	& &__title,
+	&__text,
+	&__footer {
+		margin: $betterembed-content-margin $betterembed-content-margin 0;
+	}
+
+	&__media {
+		margin: $betterembed-content-margin 0 0;
+
+		&:first-child {
+			margin-top: 0;
+		}
+
+	}
+
+	img {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+
+	&__read-more {
+		font-size: 0.8em;
+		white-space: nowrap;
+	}
+
+	&__author {
+		font-size: 0.8em;
+	}
+
+	&__date {
+		font-size: 0.8em;
+	}
+
+}

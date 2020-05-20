@@ -57,13 +57,19 @@ class Assets implements Service {
 	protected function registerFrontend(){
 
 		$pluginFile = $this->plugin->pluginFile();
-		$pluginPath = $this->plugin->pluginPath();
 
 		wp_register_style(
 			$this->plugin->prefix('style'),
 			plugins_url( 'build/style.css', $pluginFile ),
-			array(),
+			array( $this->plugin->prefix('theme') ),
 			filemtime( $this->assetPath() . 'style.css' )
+		);
+
+		wp_register_style(
+			$this->plugin->prefix('theme'),
+			plugins_url( 'build/theme.css', $pluginFile ),
+			array(),
+			filemtime( $this->assetPath() . 'theme.css' )
 		);
 
 	}

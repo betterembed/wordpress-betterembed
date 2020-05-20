@@ -2,7 +2,7 @@ const defaultConfig = require("./node_modules/@wordpress/scripts/config/webpack.
 const path = require('path');
 module.exports = {
 	...defaultConfig,
-	entry: ['./src/index.js', './src/editor.scss', './src/style.scss'],
+	entry: ['./src/index.js', './src/editor.scss', './src/style.scss', './src/theme.scss'],
 	output: {
 		path: path.resolve(__dirname, 'build'),
 		filename: 'index.js',
