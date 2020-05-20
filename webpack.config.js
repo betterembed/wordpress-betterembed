@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
 	...defaultConfig,
 	entry: [
-		'./assets/src/js/index.js',
+		'./assets/src/js/editor/index.js',
 		'./assets/src/scss/editor.scss',
 		'./assets/src/scss/style.scss',
 		'./assets/src/scss/theme.scss'
