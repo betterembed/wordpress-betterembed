@@ -17,21 +17,23 @@ class Assets implements Service {
 		$this->registerFrontend();
 	}
 
-	protected function assetPath():string {
-		return $this->plugin->pluginPath() . '/build/';
+	protected function assetPath(string $filename = ''):string {
+		return $this->plugin->pluginPath() . '/assets/build/' . $filename;
+	}
+
+	protected function assetUrl(string $filename = ''):string {
+		return plugins_url( 'assets/build/' . $filename, $this->plugin->pluginFile() );
 	}
 
 	protected function registerBackend(){
 
-		$pluginFile = $this->plugin->pluginFile();
-		$pluginPath = $this->plugin->pluginPath();
-
 		// Automatically load dependencies and version.
-		$assetFile = include($this->assetPath() . 'index.asset.php');
+		/** @noinspection PhpIncludeInspection */
+		$assetFile = include($this->assetPath('index.asset.php'));
 
 		wp_register_script(
 			$this->plugin->prefix('editor'),
-			plugins_url( 'build/index.js', $pluginFile),
+			$this->assetUrl('index.js'),
 			$assetFile['dependencies'],
 			$assetFile['version']
 		);
@@ -47,7 +49,7 @@ class Assets implements Service {
 
 		wp_register_style(
 			$this->plugin->prefix('editor'),
-			plugins_url( 'build/editor.css', $pluginFile ),
+			$this->assetUrl('editor.css'),
 			array( 'wp-edit-blocks' ),
 			filemtime( $this->assetPath() . 'editor.css' )
 		);
@@ -60,14 +62,14 @@ class Assets implements Service {
 
 		wp_register_style(
 			$this->plugin->prefix('style'),
-			plugins_url( 'build/style.css', $pluginFile ),
+			$this->assetUrl('style.css'),
 			array( $this->plugin->prefix('theme') ),
 			filemtime( $this->assetPath() . 'style.css' )
 		);
 
 		wp_register_style(
 			$this->plugin->prefix('theme'),
-			plugins_url( 'build/theme.css', $pluginFile ),
+			$this->assetUrl('theme.css'),
 			array(),
 			filemtime( $this->assetPath() . 'theme.css' )
 		);
