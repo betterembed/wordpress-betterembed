@@ -1,5 +1,5 @@
 === Betterembed ===
-Contributors: kraftner
+Contributors: acolono, kraftner
 Donate link: https://example.com/
 Tags: embed
 Requires at least: 5.4
