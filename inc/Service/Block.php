@@ -4,17 +4,16 @@
 namespace BetterEmbed\WordPress\Service;
 
 
-use BetterEmbed\WordPress\Api\Api;
-use BetterEmbed\WordPress\Container;
 use BetterEmbed\WordPress\Plugin;
+use BetterEmbed\WordPress\Storage\Storage;
 use BetterEmbed\WordPress\View\TemplateView;
 use function BetterEmbed\WordPress\be_reset_item_data;
 use function BetterEmbed\WordPress\be_setup_item_data;
 
 class Block implements Service {
 
-	/** @var Api */
-	protected $api;
+	/** @var Storage */
+	protected $storage;
 
 	/** @var Plugin */
 	protected $plugin;
@@ -22,9 +21,9 @@ class Block implements Service {
 	/** @var TemplateView */
 	protected $view;
 
-	public function __construct( Api $api, TemplateView $view ) {
-		$this->api  = $api;
-		$this->view = $view;
+	public function __construct( Storage $storage, TemplateView $view ) {
+		$this->storage = $storage;
+		$this->view    = $view;
 	}
 
 	public function init(Plugin $plugin){
@@ -49,7 +48,7 @@ class Block implements Service {
 					return $this->view->render( 'error.php' );
 				};
 
-				be_setup_item_data( $this->api->getItem( $attributes['url'] ) );
+				be_setup_item_data( $this->storage->getItemFromUrl( $attributes['url'] ) );
 				$html = $this->view->render( $this->plugin->namespace() . '.php' );
 				be_reset_item_data();
 				return $html;
