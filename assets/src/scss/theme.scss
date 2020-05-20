@@ -1,27 +1,4 @@
-$betterembed-background: rgba(0, 0, 0, 0.1) !default;
-$betterembed-providers: (
-	facebook: #306199,
-	linkedin: #007bb6,
-	twitter: #26c4f1,
-	googleplus: #e93f2e,
-	youtube: #df1c31,
-	pinterest: #b81621,
-	pocket: #ed4054,
-	github: #444,
-	instagram: #125688,
-	hackernews: #ff6600,
-	delicious: #0b79e5,
-	vk: #4d71a9,
-	print: #8d98a2,
-	whatsapp: #43d854,
-	xing: #126567,
-	addthis: #ff5c3e,
-	tumblr: #35465c,
-	flattr: #f67c1a,
-	diaspora: #bbbbbb,
-	reddit: #ff4500,
-	stumbleupon: #ff2b25,
-);
+@import "settings";
 
 .wp-block-betterembed-embed {
 
@@ -46,7 +23,7 @@ $betterembed-providers: (
 		&.is-provider-#{$provider} &__body {
 			background-color: #{$color};
 			//TODO: Ensure contrast
-			color: white;
+			color: #fff;
 		}
 
 	}

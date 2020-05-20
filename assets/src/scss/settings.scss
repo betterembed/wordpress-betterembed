@@ -1,0 +1,35 @@
+/* For naming conventions see https://github.com/WordPress/gutenberg/blob/master/docs/contributors/coding-guidelines.md#naming */
+
+/**
+ Global Settings
+ */
+$betterembed-icon-size: 1.3em !default;
+$betterembed-content-margin: 15px !default;
+
+/**
+ Theme Settings
+ */
+$betterembed-background: rgba(0, 0, 0, 0.1) !default;
+$betterembed-providers: (
+	facebook: #306199,
+	linkedin: #007bb6,
+	twitter: #26c4f1,
+	googleplus: #e93f2e,
+	youtube: #df1c31,
+	pinterest: #b81621,
+	pocket: #ed4054,
+	github: #444,
+	instagram: #125688,
+	hackernews: #f60,
+	delicious: #0b79e5,
+	vk: #4d71a9,
+	print: #8d98a2,
+	whatsapp: #43d854,
+	xing: #126567,
+	addthis: #ff5c3e,
+	tumblr: #35465c,
+	flattr: #f67c1a,
+	diaspora: #bbb,
+	reddit: #ff4500,
+	stumbleupon: #ff2b25,
+);

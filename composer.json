@@ -2,7 +2,7 @@
     "name": "betterembed/wordpress-betterembed",
     "description": "BetterEmbed integration for WordPress.",
     "type": "wordpress-plugin",
-    "license": "GPL-3.0-or-later",
+    "license": "GPL-2.0-or-later",
     "homepage": "https://github.com/betterembed/wordpress-betterembed",
     "authors": [
         {

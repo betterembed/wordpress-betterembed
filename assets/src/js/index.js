@@ -7,7 +7,10 @@ import save from './save';
 
 registerBlockType( 'betterembed/embed', {
 	title: __( 'Better Embed', 'betterembed' ),
-	description: __( 'Include the essential content of any website or service such as Facebook posts, Twitter tweets, Instagram posts, YouTube videos, WordPress Blogposts etc. into your own page without any extra effort.', 'betterembed' ),
+	description: __(
+		'Include the essential content of any website or service such as Facebook posts, Twitter tweets, Instagram posts, YouTube videos, WordPress Blogposts etc. into your own page without any extra effort.',
+		'betterembed'
+	),
 	category: 'embed',
 	icon,
 	keywords: [ __( 'social' ) ],
@@ -19,7 +22,7 @@ registerBlockType( 'betterembed/embed', {
 	example: {},
 	supports: {
 		align: true,
-		html: false
+		html: false,
 	},
 	edit,
 	save,

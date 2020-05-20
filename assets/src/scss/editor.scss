@@ -1,0 +1,9 @@
+@import "settings";
+
+.wp-block-betterembed-embed {
+
+	& &__title {
+		margin: $betterembed-content-margin 0 0 !important;
+	}
+
+}

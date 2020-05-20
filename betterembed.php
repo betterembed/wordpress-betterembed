@@ -4,7 +4,7 @@
  *
  * @package           BetterEmbed
  * @copyright         2020 Better Embed
- * @license           GPL-3.0-or-later
+ * @license           GPL-2.0-or-later
  *
  * @wordpress-plugin
  * Plugin Name:       Better Embed
@@ -15,8 +15,8 @@
  * Requires PHP:      7.2
  * Author:            Better Embed
  * Author URI:        https://www.acolono.com/betterembed
- * License:           GPL v3 or later
- * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
+ * License:           GPL v2 or later
+ * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       betterembed
  * Domain Path:       /languages
  *

@@ -2,6 +2,19 @@
   "name": "@betterembed/wordpress-betterembed",
   "version": "0.0.1-alpha.1",
   "description": "BetterEmbed integration for WordPress.",
+  "author": {
+    "name": "Better Embed",
+    "url": "https://betterembed.com"
+  },
+  "license": "GPL-2.0-or-later",
+  "keywords": [
+    "embed"
+  ],
+  "homepage": "https://betterembed.com",
+  "repository": "github:betterembed/wordpress-betterembed",
+  "bugs": {
+    "url": "https://github.com/betterembed/wordpress-betterembed/issues"
+  },
   "private": true,
   "main": "build/index.js",
   "devDependencies": {
@@ -18,14 +31,17 @@
     "sass-loader": "^8.0.2"
   },
   "scripts": {
-    "build": "wp-scripts build",
+    "build": "npm run format:js && npm run lint && npm run build:unsafe",
+    "build:unsafe": "wp-scripts build",
     "check-engines": "wp-scripts check-engines",
     "check-licenses": "wp-scripts check-licenses",
-    "format:js": "wp-scripts format-js",
-    "lint:css": "wp-scripts lint-style",
-    "lint:js": "wp-scripts lint-js",
-    "lint:md:docs": "wp-scripts lint-md-docs",
-    "lint:md:js": "wp-scripts lint-md-js",
+    "format:js": "wp-scripts format-js ./assets/src/js",
+    "lint": "npm run lint:css && npm run lint:js && npm run lint:md && npm run lint:pkg-json",
+    "lint:css": "wp-scripts lint-style ./assets/src/scss",
+    "lint:js": "wp-scripts lint-js ./assets/src/js",
+    "lint:md": "npm run lint:md:docs && npm run lint:md:js",
+    "lint:md:docs": "wp-scripts lint-md-docs README.md",
+    "lint:md:js": "wp-scripts lint-md-js README.md",
     "lint:pkg-json": "wp-scripts lint-pkg-json",
     "packages-update": "wp-scripts packages-update",
     "start": "wp-scripts start",

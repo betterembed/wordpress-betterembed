@@ -22,7 +22,8 @@ const EmbedPlaceholder = ( props ) => {
 			label={ label }
 			className="wp-block-embed"
 			instructions={ __(
-				'Paste a link to the content you want to display on your site.', 'betterembed'
+				'Paste a link to the content you want to display on your site.',
+				'betterembed'
 			) }
 		>
 			<form onSubmit={ onSubmit }>
@@ -31,7 +32,10 @@ const EmbedPlaceholder = ( props ) => {
 					value={ value || '' }
 					className="components-placeholder__input"
 					aria-label={ label }
-					placeholder={ __( 'Enter URL to embed here…', 'betterembed' ) }
+					placeholder={ __(
+						'Enter URL to embed here…',
+						'betterembed'
+					) }
 					onChange={ onChange }
 				/>
 				<Button isPrimary type="submit">
@@ -50,13 +54,20 @@ const EmbedPlaceholder = ( props ) => {
 			{ cannotEmbed && (
 				<div className="components-placeholder__error">
 					<div className="components-placeholder__instructions">
-						{ __( 'Sorry, this content could not be embedded.', 'betterembed' ) }
+						{ __(
+							'Sorry, this content could not be embedded.',
+							'betterembed'
+						) }
 					</div>
 					<Button isSecondary onClick={ tryAgain }>
 						{ _x( 'Try again', 'button label', 'betterembed' ) }
 					</Button>{ ' ' }
 					<Button isSecondary onClick={ fallback }>
-						{ _x( 'Convert to link', 'button label', 'betterembed' ) }
+						{ _x(
+							'Convert to link',
+							'button label',
+							'betterembed'
+						) }
 					</Button>
 				</div>
 			) }

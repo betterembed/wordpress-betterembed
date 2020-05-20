@@ -1,7 +1,4 @@
-/* For naming conventions see https://github.com/WordPress/gutenberg/blob/master/docs/contributors/coding-guidelines.md#naming */
-
-$betterembed-icon-size: 1.3em !default;
-$betterembed-content-margin: 15px !default;
+@import "settings";
 
 .wp-block-betterembed-embed {
 
@@ -28,14 +25,14 @@ $betterembed-content-margin: 15px !default;
 		padding: ($betterembed-icon-size/2);
 		padding-right: 1.5 * $betterembed-icon-size;
 		background-color: transparent;
-		background-image: url('../img/betterembed-logo.svg');
+		background-image: url(../img/betterembed-logo.svg);
 		background-position: right center;
 		background-repeat: no-repeat;
 		background-size: $betterembed-icon-size $betterembed-icon-size;
 		border: 0;
 
 		color: inherit;
-		font-weight: normal;
+		font-weight: 400;
 		text-transform: none;
 
 		&:nth-child(2):last-child {
@@ -83,7 +80,8 @@ $betterembed-content-margin: 15px !default;
 	& &__title,
 	&__text,
 	&__footer {
-		margin: $betterembed-content-margin $betterembed-content-margin 0;
+		margin: $betterembed-content-margin 0 0;
+		padding: 0 $betterembed-content-margin;
 	}
 
 	&__media {
