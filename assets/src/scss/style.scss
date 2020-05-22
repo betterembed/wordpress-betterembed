@@ -4,10 +4,9 @@
 
 	$be_root: &;
 
-	// For absolutely positioned dialog.
-	position: relative;
-
 	&__top {
+		// For absolutely positioned dialog.
+		position: relative;
 		display: flex;
 		flex-wrap: wrap;
 		align-items: baseline;
@@ -38,6 +37,11 @@
 		&:nth-child(2):last-child {
 			margin-left: 0.5em;
 		}
+
+		&--hidden {
+			display: none;
+		}
+
 	}
 
 	&__switch-hide {
@@ -45,6 +49,25 @@
 	}
 
 	&__switch-show {
+		display: block;
+	}
+
+	&__dialog {
+		display: none;
+
+		/*
+		position: absolute;
+		top: calc(100% + #{$betterembed-content-margin});
+		right: $betterembed-content-margin;
+		left: $betterembed-content-margin;
+		 */
+
+		padding: $betterembed-content-margin;
+		background-color: rgba($betterembed-dialog-background, $betterembed-dialog-opacity);
+		color: $betterembed-dialog-color;
+	}
+
+	.is-betterembed-dialog-visible &__dialog {
 		display: block;
 	}
 
@@ -62,11 +85,8 @@
 
 	}
 
-	&__dialog {
-		display: none;
-	}
-
 	&__body {
+
 		display: flex;
 		flex-direction: column;
 

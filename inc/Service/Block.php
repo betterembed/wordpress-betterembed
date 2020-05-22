@@ -41,6 +41,7 @@ class Block implements Service {
 			$this->plugin->namespace('embed'),
 			array(
 			'style' => $this->plugin->prefix('style'),
+			'script' => $this->plugin->prefix('frontend'),
 			'editor_style' => $this->plugin->prefix('editor'),
 			'editor_script' => $this->plugin->prefix('editor'),
 			'render_callback' => function ( $attributes, $content ) {

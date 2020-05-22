@@ -60,6 +60,14 @@ class Assets implements Service {
 
 		$pluginFile = $this->plugin->pluginFile();
 
+		wp_register_script(
+			$this->plugin->prefix('frontend'),
+			$this->assetUrl('betterembed.js'),
+			array(),
+			filemtime( $this->assetPath() . 'betterembed.js' ),
+			true
+		);
+
 		wp_register_style(
 			$this->plugin->prefix('style'),
 			$this->assetUrl('style.css'),

@@ -26,39 +26,36 @@ use function BetterEmbed\WordPress\{be_get_the_author_name,
 			<?php be_the_item_type(); ?>
 		</div>
 		<?php if( be_get_the_embed_html() ): ?>
-		<button type="button" class="wp-block-betterembed-embed__switch">
+		<button type="button" class="wp-block-betterembed-embed__switch wp-block-betterembed-embed__switch--hidden">
 			<span class='wp-block-betterembed-embed__switch-show'>
 				<?php echo esc_html( __( 'show original', 'betterembed' ) ); ?>
 			</span>
 			<span class='wp-block-betterembed-embed__switch-hide'>
-				<?php echo esc_html( __( 'hide original Embed', 'betterembed' ) ); ?>
+				<?php echo esc_html( __( 'hide original', 'betterembed' ) ); ?>
 			</span>
 		</button>
+		<div class="wp-block-betterembed-embed__dialog">
+			<p>
+				<?php echo esc_html(
+					__(
+						'With a click on the link below, the original content will be loaded. This can include remote content and you can possibly be tracked from the original provider.',
+						'betterembed'
+					)
+				); ?>
+			</p>
+			<p>
+				<strong>{{ Text should be adapted for your GDPR needs }}</strong>
+			</p>
+
+			<button type='button' class='wp-block-betterembed-embed__load-remote'>
+				<?php echo esc_html( __( 'show original content', 'betterembed' ) ); ?>
+			</button>
+			<button type='button' class='wp-block-betterembed-embed__cancel-remote'>
+				<?php echo esc_html( __( 'close', 'betterembed' ) ); ?>
+			</button>
+		</div>
 		<?php endif; ?>
 	</div>
-
-	<?php if( be_get_the_embed_html() ): ?>
-	<div class="wp-block-betterembed-embed__dialog">
-		<p>
-			<?php echo esc_html(
-				__(
-					'With a click on the link below, the original content will be loaded. This can include remote content and you can possibly be tracked from the original provider.',
-					'betterembed'
-				)
-			); ?>
-		</p>
-		<p>
-			<strong>{{ Text should be adopted for your GDPR needs }}</strong>
-		</p>
-
-		<button type='button' class='wp-block-betterembed-embed__load-remote'>
-			<?php echo esc_html( __( 'show original content', 'betterembed' ) ); ?>
-		</button>
-		<button type='button' class='wp-block-betterembed-embed__cancel-remote'>
-			<?php echo esc_html( __( 'close', 'betterembed' ) ); ?>
-		</button>
-	</div>
-	<?php endif; ?>
 
 	<div class='wp-block-betterembed-embed__body'>
 
@@ -124,5 +121,8 @@ use function BetterEmbed\WordPress\{be_get_the_author_name,
 		</div>
 
 	</div>
-	<div class="betterembed__embed"></div>
+	<?php if( be_get_the_embed_html() ): ?>
+	<div class="wp-block-betterembed-embed__embed"></div>
+	<script type="text/template" class="wp-block-betterembed-embed__embed-raw"><?php echo wp_json_encode(be_get_the_embed_html()); ?></script>
+	<?php endif; ?>
 </figure>

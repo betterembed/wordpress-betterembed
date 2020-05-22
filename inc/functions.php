@@ -237,7 +237,26 @@ namespace BetterEmbed\WordPress {
 	 */
 	function be_get_the_embed_html(){
 		$item = Container::currentItem();
-		return is_null($item)?'':esc_html($item->embedHtml());
+
+		if(is_null($item)) return '';
+
+		//TODO: Double check this, espcecially for security.
+
+		$rawHtml = $item->embedHtml();
+
+		$data = (object) [ 'type' => 'rich' ];
+		$url = $item->url();
+
+		$html = wp_filter_oembed_result($rawHtml, $data, $url);
+
+		if($html === false){
+			return '';
+		}
+
+		$html = _wp_oembed_get_object()->_strip_newlines($html, $data, $url);
+		$html = trim($html);
+
+		return $html;
 	}
 
 	/**
