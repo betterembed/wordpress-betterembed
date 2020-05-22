@@ -229,9 +229,7 @@ namespace BetterEmbed\WordPress {
 	}
 
 	/**
-	 * Return the original embed HTML.
-	 *
-	 * @todo Escape this similar to how normal embeds work.
+	 * Return the original embed HTML as determined by WordPress.
 	 *
 	 * @return string
 	 */
@@ -240,27 +238,27 @@ namespace BetterEmbed\WordPress {
 
 		if(is_null($item)) return '';
 
-		//TODO: Double check this, espcecially for security.
+		$url = esc_url($item->url());
 
-		$rawHtml = $item->embedHtml();
+		if($url === '') return '';
 
-		$data = (object) [ 'type' => 'rich' ];
-		$url = $item->url();
+		/** @var \WP_Embed $wpEmbedObject */
+		$wpEmbedObject = $GLOBALS['wp_embed'];
+		$embed = $wpEmbedObject->shortcode(
+			array(),
+			$url
+		);
 
-		$html = wp_filter_oembed_result($rawHtml, $data, $url);
-
-		if($html === false){
+		// If the link isn't embeddable return an empty link instead of a URL or link.
+		if($embed === $wpEmbedObject->maybe_make_link($url)) {
 			return '';
 		}
 
-		$html = _wp_oembed_get_object()->_strip_newlines($html, $data, $url);
-		$html = trim($html);
-
-		return $html;
+		return $embed;
 	}
 
 	/**
-	 * Display the original embed HTML.
+	 * Display the original embed HTML as determined by WordPress.
 	 */
 	function be_the_embed_html(){
 		echo be_get_the_embed_html();

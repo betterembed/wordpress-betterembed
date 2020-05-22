@@ -66,8 +66,7 @@ class Api {
 			$data['thumbnailContent'] ?? '',
 			$data['authorName'] ?? '',
 			$data['authorUrl'] ?? '',
-			$data['publishedAt'] ?? '',
-			$data['embedHtml'] ?? ''
+			$data['publishedAt'] ?? ''
 		);
 
 		return $item;

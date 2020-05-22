@@ -23,8 +23,6 @@ class Item {
 
 	protected $publishedAt;
 
-	protected $embedHtml;
-
 	public function __construct(
 		string $url,
 		string $itemType,
@@ -35,8 +33,7 @@ class Item {
 		string $thumbnailContent = '',
 		string $authorName = '',
 		string $authorUrl = '',
-		string $publishedAt = '',
-		string $embedHtml = ''
+		string $publishedAt = ''
 	) {
 		$this->url                  = $url;
 		$this->itemType             = $itemType;
@@ -48,17 +45,6 @@ class Item {
 		$this->authorName           = $authorName;
 		$this->authorUrl            = $authorUrl;
 		$this->publishedAt          = $publishedAt;
-		$this->embedHtml            = $embedHtml;
-	}
-
-
-	/**
-	 * Raw HTML Embed as returned by the website.
-	 *
-	 * @return string
-	 */
-	public function embedHtml() {
-		return $this->embedHtml;
 	}
 
 	/**
