@@ -46,6 +46,17 @@ services:
     volumes:
       - db:/var/lib/mysql
 
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 127.0.0.1:8081:80
+    volumes:
+      - /sessions
+    environment:
+      - PMA_HOST=db
+      - PMA_USER=wp
+      - PMA_PASSWORD=wp
+
   wp:
     image: wordpress:cli
     user: 1000:1000
