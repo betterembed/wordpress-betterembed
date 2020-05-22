@@ -51,11 +51,12 @@ function betterembed_init(){
 		array(
 			new \BetterEmbed\WordPress\Service\Assets(),
 			new \BetterEmbed\WordPress\Service\Block(
-				new \BetterEmbed\WordPress\Storage\NoCache(
+				new \BetterEmbed\WordPress\Storage\PostTypeCache(
 					new \BetterEmbed\WordPress\Api\Api( 'https://api.betterembed.com/api/v0/item' )
 				),
 				new \BetterEmbed\WordPress\View\TemplateView( __DIR__ . '/templates' )
-			)
+			),
+			new \BetterEmbed\WordPress\Service\EmbedCachePostType(),
 		)
 	);
 

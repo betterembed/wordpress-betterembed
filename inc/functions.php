@@ -242,6 +242,9 @@ namespace BetterEmbed\WordPress {
 
 		if($url === '') return '';
 
+		//TODO: Consider forcing the cache onto the betterembed CPT instead of the post this is embed into for consistent cache clearing.
+		//Do this only in initial betterembed fetch using \WP_Embed::cache_oembed()
+
 		/** @var \WP_Embed $wpEmbedObject */
 		$wpEmbedObject = $GLOBALS['wp_embed'];
 		$embed = $wpEmbedObject->shortcode(

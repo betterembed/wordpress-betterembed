@@ -30,6 +30,7 @@ services:
       WORDPRESS_DEBUG: 1
       WORDPRESS_CONFIG_EXTRA: |
         define('SCRIPT_DEBUG', true );
+        define('BETTEREMBED_DEBUG', true );
     volumes:
       - wordpress:/var/www/html
       - ./:/var/www/html/wp-content/plugins/betterembed
