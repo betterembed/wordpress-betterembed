@@ -5,8 +5,17 @@ namespace BetterEmbed\WordPress\Storage;
 
 
 use BetterEmbed\WordPress\Api\Api;
+use BetterEmbed\WordPress\Exception\BetterEmbedException;
+use BetterEmbed\WordPress\Exception\FailedToCreateCache;
+use BetterEmbed\WordPress\Exception\FailedToGetItem;
 use BetterEmbed\WordPress\Model\Item;
+use BetterEmbed\WordPress\Util\AttachmentHelper;
 use WP_Query;
+
+//Is this smart?
+require_once ABSPATH . 'wp-admin/includes/file.php';
+require_once ABSPATH . 'wp-admin/includes/image.php';
+require_once ABSPATH . 'wp-admin/includes/media.php';
 
 class PostTypeCache implements Storage {
 
@@ -31,14 +40,24 @@ class PostTypeCache implements Storage {
 
 		if(is_null($cacheId)){
 			$item = $this->api->getItem( $url );
-			$this->saveItem($item);
-			return $item;
-		}else{
-			return $this->buildItem($cacheId);
+			try {
+				$cacheId = $this->saveItem($item);
+			}catch (FailedToCreateCache $exception){
+				throw FailedToGetItem::fromCacheException($url, $exception);
+			}
 		}
+		return $this->buildItem($cacheId);
 
 	}
-	protected function saveItem(Item $item){
+
+	/**
+	 * @param Item $item
+	 *
+	 * @throws FailedToCreateCache
+	 *
+	 * @return int
+	 */
+	protected function saveItem(Item $item):int{
 
 		$postArray = array(
 			'post_date_gmt' => $item->publishedAt()->format("Y-m-d H:i:s"), //TODO: Should this maybe be saved as meta to keep thsi field for caching date?
@@ -46,32 +65,57 @@ class PostTypeCache implements Storage {
 			'post_title'    => $item->title(),
 			'post_status'   => 'publish',
 			'post_type'     => $this->postType(),
-			'post_name'     => $this->hash($item->url()),
+			'post_name'     => $this->hash( $item->url() ),
 		);
 
 		$postId =  wp_insert_post( $postArray );
 
-		if(is_wp_error($postId)) return;
+		if( $postId === 0 ){
+			throw FailedToCreateCache::forVarious($item->url());
+		}
+		if( is_wp_error($postId) ) {
+			throw FailedToCreateCache::fromWpError($item->url(), $postId);
+		}
+
+		if($item->thumbnailUrl() !== ''){
+			try{
+				$this->importThumbnail($item->thumbnailUrl(), $postId);
+			}catch (BetterEmbedException $exception){
+				wp_delete_post($postId);
+				throw FailedToCreateCache::fromException($item->url(), $exception);
+			}
+		}
 
 		$metaData = array(
-			'url' => $item->url(),
-			'itemType' => $item->itemType(),
+			'url'          => $item->url(),
+			'itemType'     => $item->itemType(),
 			'thumbnailUrl' => $item->thumbnailUrl(),
-			'thumbnailContentType' => $item->thumbnailContentType(),
-			'thumbnailContent' => $item->thumbnailContent(),
-			'authorName' => $item->authorName(),
-			'authorUrl' => $item->authorUrl(),
+			'authorName'   => $item->authorName(),
+			'authorUrl'    => $item->authorUrl(),
 		);
 
 		foreach ($metaData as $metaKey => $metaValue) {
 			if(update_post_meta($postId, $metaKey, $metaValue) === false){
-				throw new \Error('Error Updating Meta');
-				//TODO: Rollback?
+				wp_delete_post($postId);
+				throw FailedToCreateCache::fromMeta($item->url(),  $metaKey, $metaValue);
 			}
 		}
 
+		return $postId;
+
 	}
 
+	protected function importThumbnail(string $url, int $itemAttachmentPostId) {
+
+		$attachmentId = AttachmentHelper::urlToAttachment($url, $itemAttachmentPostId);
+
+		if( update_post_meta( $itemAttachmentPostId, '_thumbnail_id', $attachmentId ) === false ){
+			throw FailedToCreateCache::fromMeta($url,  '_thumbnail_id', $attachmentId);
+		}
+
+		return $attachmentId;
+
+	}
 
 	protected function buildItem(int $cacheId): Item{
 
@@ -79,9 +123,7 @@ class PostTypeCache implements Storage {
 		$itemType = get_post_meta($cacheId, 'itemType', true ) ?? '';
 		$title = get_post($cacheId)->post_title ?? '';
 		$body = get_post($cacheId)->post_content ?? '';
-		$thumbnailUrl = get_post_meta($cacheId, 'thumbnailUrl', true ) ?? '';
-		$thumbnailContentType = get_post_meta($cacheId, 'thumbnailContentType', true ) ?? '';
-		$thumbnailContent = get_post_meta($cacheId, 'thumbnailContent', true ) ?? '';
+		$thumbnailUrl = get_the_post_thumbnail_url($cacheId) ?? '';
 		$authorName = get_post_meta($cacheId, 'authorName', true ) ?? '';
 		$authorUrl = get_post_meta($cacheId, 'authorUrl', true ) ?? '';
 		$publishedAt = get_post_datetime( $cacheId, 'date', 'gmt')->format('c');
@@ -92,8 +134,6 @@ class PostTypeCache implements Storage {
 			$title,
 			$body,
 			$thumbnailUrl,
-			$thumbnailContentType,
-			$thumbnailContent,
 			$authorName,
 			$authorUrl,
 			$publishedAt

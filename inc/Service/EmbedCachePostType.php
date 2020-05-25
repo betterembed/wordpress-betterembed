@@ -14,10 +14,21 @@ class EmbedCachePostType implements Service {
 	public function init(Plugin $plugin){
 		$this->plugin = $plugin;
 		$this->registerPostType();
+
+		add_action( 'before_delete_post', array( $this, 'deleteAttachmentsWithPost') );
+
+		/**
+		 * TODO: Consider skipping the trash to immediately delete this post type?
+		 * But since this post type is private and will probably only ever get deleted by this plugin an alternative
+		 * is to just handle this by always using `wp_delete_attachment()` with the `$force_delete` parameter.
+		 */
+
+		/**
+		 * TODO: Consider hiding attachments for this post type from the Media Library.
+		 */
 	}
 
 	protected function registerPostType(){
-
 
 		/**
 		 * Enables UI für the Cache Post Type for debugging.
@@ -32,7 +43,7 @@ class EmbedCachePostType implements Service {
 		);
 
 		register_post_type(
-			$this->plugin->prefix('cache'),
+			$this->postTypeKey(),
 			array(
 				'labels'           => array(
 					'name'          => __( 'BetterEmbeds', 'betterembed' ),
@@ -51,6 +62,28 @@ class EmbedCachePostType implements Service {
 			)
 		);
 
+	}
+
+	/**
+	 * Before deleting a post delete all associated attachments.
+	 *
+	 * @param int $postId
+	 */
+	public function deleteAttachmentsWithPost( int $postId ){
+
+		if( get_post_type($postId) !== $this->postTypeKey() ) return;
+
+		$attachments = get_attached_media( '', $postId );
+
+		foreach ($attachments as $attachment) {
+			//TODO: Handle error?
+			wp_delete_attachment( $attachment->ID, 'true' );
+		}
+
+	}
+
+	protected function postTypeKey(){
+		return $this->plugin->prefix('cache');
 	}
 
 }

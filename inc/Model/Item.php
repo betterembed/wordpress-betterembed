@@ -15,8 +15,6 @@ class Item {
 	protected $body;
 
 	protected $thumbnailUrl;
-	protected $thumbnailContentType;
-	protected $thumbnailContent;
 
 	protected $authorName;
 	protected $authorUrl;
@@ -29,8 +27,6 @@ class Item {
 		string $title = '',
 		string $body = '',
 		string $thumbnailUrl = '',
-		string $thumbnailContentType = '',
-		string $thumbnailContent = '',
 		string $authorName = '',
 		string $authorUrl = '',
 		string $publishedAt = ''
@@ -40,8 +36,6 @@ class Item {
 		$this->title                = $title;
 		$this->body                 = $body;
 		$this->thumbnailUrl         = $thumbnailUrl;
-		$this->thumbnailContentType = $thumbnailContentType;
-		$this->thumbnailContent     = $thumbnailContent;
 		$this->authorName           = $authorName;
 		$this->authorUrl            = $authorUrl;
 		$this->publishedAt          = $publishedAt;
@@ -86,20 +80,6 @@ class Item {
 	}
 
 	/**
-	 * @return mixed
-	 */
-	public function thumbnailContentType() {
-		return $this->thumbnailContentType;
-	}
-
-	/**
-	 * @return mixed
-	 */
-	public function thumbnailContent() {
-		return $this->thumbnailContent;
-	}
-
-	/**
 	 * @return string
 	 */
 	public function authorName() {
@@ -117,7 +97,11 @@ class Item {
 	 * @return DateTimeInterface
 	 */
 	public function publishedAt() {
-		return new \DateTime($this->publishedAt);
+		try {
+			return new \DateTime($this->publishedAt);
+		}catch (\Exception $exception){
+			return new \DateTime();
+		}
 	}
 
 
