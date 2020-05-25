@@ -3,6 +3,7 @@
 namespace BetterEmbed\WordPress\Service;
 
 use BetterEmbed\WordPress\Plugin;
+use WP_Post;
 
 class EmbedCachePostType implements Service
 {
@@ -14,7 +15,7 @@ class EmbedCachePostType implements Service
         $this->plugin = $plugin;
         $this->registerPostType();
 
-        add_action('before_delete_post', array( $this, 'deleteAttachmentsWithPost' ));
+        add_filter('pre_delete_post', array( $this, 'deleteAttachmentsWithPost' ), 10, 3);
 
         /**
          * TODO: Consider skipping the trash to immediately delete this post type?
@@ -63,22 +64,32 @@ class EmbedCachePostType implements Service
     }
 
     /**
-     * Before deleting a post delete all associated attachments.
+     * Before deleting a post delete all associated attachments and prevent post deletion on failure.
      *
-     * @param int $postId
+     * @param $delete
+     * @param WP_Post $post
+     * @param bool $force_delete
+     *
+     * @return mixed
      */
-    public function deleteAttachmentsWithPost( int $postId ) {
+    public function deleteAttachmentsWithPost( $delete, WP_Post $post, bool $force_delete) {
 
-        if (get_post_type($postId) !== $this->postTypeKey()) {
-            return;
+        if ($post->post_type !== $this->postTypeKey()) {
+            return $delete;
         }
 
-        $attachments = get_attached_media('', $postId);
+        $attachments = get_attached_media('', $post->ID);
 
         foreach ($attachments as $attachment) {
-            //TODO: Handle error?
-            wp_delete_attachment($attachment->ID, 'true');
+            $success = wp_delete_attachment($attachment->ID, 'true');
+
+            //If deleting the attachments fails abort the post deletion to prevent stray attachments.
+            if (!$success || is_null($success)) {
+                return false;
+            }
         }
+
+        return $delete;
     }
 
     protected function postTypeKey() {
