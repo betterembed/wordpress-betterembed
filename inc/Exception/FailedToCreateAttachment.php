@@ -1,19 +1,22 @@
 <?php
 
-
 namespace BetterEmbed\WordPress\Exception;
 
+use RuntimeException;
+use WP_Error;
 
-class FailedToCreateAttachment extends \RuntimeException implements BetterEmbedException {
+use function sprintf;
 
-	public static function fromWpError( string $url, \WP_Error $error ) {
-		$message = \sprintf(
-			'Could not create attachment from URL "%1$s". Reason: "%2$s".',
-			$url,
-			$error->get_error_message()
-		);
+class FailedToCreateAttachment extends RuntimeException implements BetterEmbedException
+{
 
-		return new static( $message );
-	}
+    public static function fromWpError( string $url, WP_Error $error ) {
+        $message = sprintf(
+            'Could not create attachment from URL "%1$s". Reason: "%2$s".',
+            $url,
+            $error->get_error_message()
+        );
 
+        return new static($message);
+    }
 }

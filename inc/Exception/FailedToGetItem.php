@@ -1,20 +1,22 @@
 <?php
 
-
 namespace BetterEmbed\WordPress\Exception;
 
+use RuntimeException;
 
-class FailedToGetItem extends \RuntimeException implements BetterEmbedException {
+use function sprintf;
 
-	public static function fromCacheException( string $url, FailedToCreateCache $exception ){
+class FailedToGetItem extends RuntimeException implements BetterEmbedException
+{
 
-		$message = \sprintf(
-			'Could not get item cache for URL "%1$s". Reason: "%2$s".',
-			$url,
-			$exception->getMessage()
-		);
+    public static function fromCacheException( string $url, FailedToCreateCache $exception ) {
 
-		return new static( $message, (int) $exception->getCode(), $exception );
-	}
+        $message = sprintf(
+            'Could not get item cache for URL "%1$s". Reason: "%2$s".',
+            $url,
+            $exception->getMessage()
+        );
 
+        return new static($message, (int) $exception->getCode(), $exception);
+    }
 }

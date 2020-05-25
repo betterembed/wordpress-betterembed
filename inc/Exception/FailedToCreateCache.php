@@ -1,51 +1,54 @@
 <?php
 
-
 namespace BetterEmbed\WordPress\Exception;
 
+use RuntimeException;
+use WP_Error;
 
-class FailedToCreateCache extends \RuntimeException implements BetterEmbedException {
+use function sprintf;
 
-	public static function forVarious( string $url ) {
-		$message = \sprintf(
-			'Could not cache URL "%1$s".',
-			$url
-		);
+class FailedToCreateCache extends RuntimeException implements BetterEmbedException
+{
 
-		return new static( $message );
-	}
+    public static function forVarious( string $url ) {
+        $message = sprintf(
+            'Could not cache URL "%1$s".',
+            $url
+        );
 
-	public static function fromWpError( string $url, \WP_Error $error ) {
-		$message = \sprintf(
-			'Could not cache URL "%1$s". Reason: "%2$s".',
-			$url,
-			$error->get_error_message()
-		);
+        return new static($message);
+    }
 
-		return new static( $message );
-	}
+    public static function fromWpError( string $url, WP_Error $error ) {
+        $message = sprintf(
+            'Could not cache URL "%1$s". Reason: "%2$s".',
+            $url,
+            $error->get_error_message()
+        );
 
-	public static function fromException( string $url, BetterEmbedException $exception ){
+        return new static($message);
+    }
 
-		$message = \sprintf(
-			'Could not create attachment from URL "%1$s". Reason: "%2$s".',
-			$url,
-			$exception->getMessage()
-		);
+    public static function fromException( string $url, BetterEmbedException $exception ) {
 
-		return new static( $message, (int) $exception->getCode(), $exception );
-	}
+        $message = sprintf(
+            'Could not create attachment from URL "%1$s". Reason: "%2$s".',
+            $url,
+            $exception->getMessage()
+        );
 
-	public static function fromMeta( string $url, string $metaKey, string $metaValue ){
+        return new static($message, (int) $exception->getCode(), $exception);
+    }
 
-		$message = \sprintf(
-			'Could not create attachment meta from URL "%1$s" for key "%2$s" with value "%3$s".',
-			$url,
-			$metaKey,
-			$metaValue
-		);
+    public static function fromMeta( string $url, string $metaKey, string $metaValue ) {
 
-		return new static( $message );
-	}
+        $message = sprintf(
+            'Could not create attachment meta from URL "%1$s" for key "%2$s" with value "%3$s".',
+            $url,
+            $metaKey,
+            $metaValue
+        );
 
+        return new static($message);
+    }
 }

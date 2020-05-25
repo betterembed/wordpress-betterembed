@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Better Embed
  *
@@ -34,34 +35,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
 $autoloader = __DIR__ . '/vendor/autoload.php';
-if ( ! file_exists( $autoloader ) ) {
-	return false;
+if (! file_exists($autoloader)) {
+    return false;
 }
 
 /** @noinspection PhpIncludeInspection */
-include_once $autoloader;
+require_once $autoloader;
 
-function betterembed_init(){
+function betterembed_init() {
 
-	$plugin = new \BetterEmbed\WordPress\Plugin( __FILE__, 'betterembed');
-	$plugin->init(
-		array(
-			new \BetterEmbed\WordPress\Service\Assets(),
-			new \BetterEmbed\WordPress\Service\Block(
-				new \BetterEmbed\WordPress\Storage\PostTypeCache(
-					new \BetterEmbed\WordPress\Api\Api( 'https://api.betterembed.com/api/v0/item' )
-				),
-				new \BetterEmbed\WordPress\View\TemplateView( __DIR__ . '/templates' )
-			),
-			new \BetterEmbed\WordPress\Service\EmbedCachePostType(),
-		)
-	);
+    $plugin = new \BetterEmbed\WordPress\Plugin(__FILE__, 'betterembed');
+    $plugin->init(
+        array(
+            new \BetterEmbed\WordPress\Service\Assets(),
+            new \BetterEmbed\WordPress\Service\Block(
+                new \BetterEmbed\WordPress\Storage\PostTypeCache(
+                    new \BetterEmbed\WordPress\Api\Api('https://api.betterembed.com/api/v0/item')
+                ),
+                new \BetterEmbed\WordPress\View\TemplateView(__DIR__ . '/templates')
+            ),
+            new \BetterEmbed\WordPress\Service\EmbedCachePostType(),
+        )
+    );
 
-	load_plugin_textdomain( 'betterembed', false, basename( __DIR__ ) . '/languages' );
-
+    load_plugin_textdomain('betterembed', false, basename(__DIR__) . '/languages');
 }
 
-add_action( 'init', 'betterembed_init' );
+add_action('init', 'betterembed_init');

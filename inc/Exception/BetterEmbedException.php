@@ -11,6 +11,7 @@ use Throwable;
  * This allows you to not only catch individual exceptions, but also catch "all
  * exceptions from plugin XY".
  */
-interface BetterEmbedException extends Throwable {
+interface BetterEmbedException extends Throwable
+{
 
 }

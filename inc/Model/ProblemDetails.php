@@ -1,34 +1,32 @@
 <?php
 
-
 namespace BetterEmbed\WordPress\Model;
 
+class ProblemDetails
+{
 
-class ProblemDetails {
-
-	protected $title;
+    protected $title;
     protected $status;
     protected $detail;
 
-	/**
-	 * @return string
-	 */
-	public function title() {
-		return $this->title;
-	}
+    /**
+     * @return string
+     */
+    public function title() {
+        return $this->title;
+    }
 
-	/**
-	 * @return int
-	 */
-	public function status() {
-		return $this->status;
-	}
+    /**
+     * @return int
+     */
+    public function status() {
+        return $this->status;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function detail() {
-		return $this->detail;
-	}
-
+    /**
+     * @return string
+     */
+    public function detail() {
+        return $this->detail;
+    }
 }

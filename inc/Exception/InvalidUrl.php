@@ -1,18 +1,20 @@
 <?php
 
-
 namespace BetterEmbed\WordPress\Exception;
 
+use InvalidArgumentException;
 
-class InvalidUrl extends \InvalidArgumentException implements BetterEmbedException {
+use function sprintf;
 
-	public static function fromUrl( string $url ) {
-		$message = \sprintf(
-			'The url "%s" is not valid or readable.',
-			$url
-		);
+class InvalidUrl extends InvalidArgumentException implements BetterEmbedException
+{
 
-		return new static( $message );
-	}
+    public static function fromUrl( string $url ) {
+        $message = sprintf(
+            'The url "%s" is not valid or readable.',
+            $url
+        );
 
+        return new static($message);
+    }
 }
