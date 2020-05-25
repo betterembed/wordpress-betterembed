@@ -36,6 +36,7 @@ services:
       - ./:/var/www/html/wp-content/plugins/betterembed
     depends_on:
       - db
+    command: bash /var/www/html/wp-content/plugins/betterembed/docker-entrypoint.sh
 
   db:
     image: mysql:5.7
