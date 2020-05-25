@@ -127,7 +127,7 @@ namespace BetterEmbed\WordPress {
 
         printf(
             '<img src="%s" alt="">',
-            $url
+            $url // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         );
     }
 
@@ -225,6 +225,7 @@ namespace BetterEmbed\WordPress {
         $humanTimeDiff = human_time_diff($dateTime->getTimestamp());
 
         echo esc_html(
+            /* translators: %s: Human-readable time difference. */
             sprintf(__('%s ago', 'betterembed'), $humanTimeDiff)
         );
     }
@@ -247,8 +248,9 @@ namespace BetterEmbed\WordPress {
             return '';
         }
 
-        //TODO: Consider forcing the cache onto the betterembed CPT instead of the post this is embed into for consistent cache clearing.
-        //Do this only in initial betterembed fetch using \WP_Embed::cache_oembed()
+        // TODO: Consider forcing the cache onto the betterembed CPT instead of the post this is embed.
+        // this might make cache clearing easier..
+        // Do this only in initial betterembed fetch using \WP_Embed::cache_oembed()
 
         /** @var WP_Embed $wpEmbedObject */
         $wpEmbedObject = $GLOBALS['wp_embed'];

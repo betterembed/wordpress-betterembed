@@ -41,7 +41,9 @@
 		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
         <exclude name="WordPress.NamingConventions.ValidVariableName"/>
 	    <exclude name="WordPress.NamingConventions.ValidFunctionName"/>
+	    <exclude name="WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound"/>
 	    <exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
+	    <exclude name="WordPress.PHP.DisallowShortTernary.Found"/>
 	    <exclude name="Generic.WhiteSpace.DisallowSpaceIndent.SpacesUsed"/>
 	    <exclude name="Generic.Classes.OpeningBraceSameLine"/>
 	    <exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine"/>
@@ -55,10 +57,29 @@
 			<property name="prefixes" type="array" value="betterembed"/>
 		</properties>
 	</rule>
+	<rule ref="WordPress.Security.EscapeOutput">
+    	<properties>
+    		<property name="customAutoEscapedFunctions" type="array">
+    			<element value="be_get_the_url"/>
+    			<element value="be_get_the_item_type"/>
+    			<element value="be_get_the_title"/>
+    			<element value="be_get_the_body"/>
+    			<element value="be_get_the_thumbnail_url"/>
+    			<element value="be_get_the_author_name"/>
+    			<element value="be_get_the_author_url"/>
+    			<element value="be_get_the_date"/>
+    			<element value="be_get_the_embed_html"/>
+    		</property>
+    	</properties>
+    </rule>
 	<rule ref="WordPress.WP.I18n">
 		<properties>
 			<!-- Value: replace the text domain used. -->
 			<property name="text_domain" type="array" value="betterembed"/>
 		</properties>
 	</rule>
+	<rule ref="Generic.Files.LineLength.TooLong">
+	    <exclude-pattern>templates/*</exclude-pattern>
+	</rule>
+
 </ruleset>

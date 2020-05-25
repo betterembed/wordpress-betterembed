@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore PSR1.Files.SideEffects.FoundWithSymbols
 
 /**
  * Better Embed
@@ -10,7 +10,7 @@
  * @wordpress-plugin
  * Plugin Name:       Better Embed
  * Plugin URI:        https://www.acolono.com/betterembed
- * Description:       Include the essential content of any website or service such as Facebook posts, Twitter tweets, Instagram posts, YouTube videos, WordPress Blogposts etc. into your own page without any extra effort.
+ * Description:       Embed content from other sites in a privacy friendly, performant and easily themeable way.
  * Version:           0.1.0-alpha.1
  * Requires at least: 5.4
  * Requires PHP:      7.2
@@ -37,13 +37,13 @@
 
 defined('ABSPATH') || exit;
 
-$autoloader = __DIR__ . '/vendor/autoload.php';
-if (! file_exists($autoloader)) {
+$betterembed_autoloader = __DIR__ . '/vendor/autoload.php';
+if (! file_exists($betterembed_autoloader)) {
     return false;
 }
 
 /** @noinspection PhpIncludeInspection */
-require_once $autoloader;
+require_once $betterembed_autoloader;
 
 function betterembed_init() {
 

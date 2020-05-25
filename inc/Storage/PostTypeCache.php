@@ -1,4 +1,4 @@
-<?php
+<?php // phpcs:ignore PSR1.Files.SideEffects.FoundWithSymbols
 
 namespace BetterEmbed\WordPress\Storage;
 
@@ -10,7 +10,7 @@ use BetterEmbed\WordPress\Model\Item;
 use BetterEmbed\WordPress\Util\AttachmentHelper;
 use WP_Query;
 
-//Is this smart?
+// TODO: Can this be solved in a smarter way?
 require_once ABSPATH . 'wp-admin/includes/file.php';
 require_once ABSPATH . 'wp-admin/includes/image.php';
 require_once ABSPATH . 'wp-admin/includes/media.php';
@@ -58,7 +58,8 @@ class PostTypeCache implements Storage
     protected function saveItem( Item $item): int {
 
         $postArray = array(
-            'post_date_gmt' => $item->publishedAt()->format('Y-m-d H:i:s'), //TODO: Should this maybe be saved as meta to keep thsi field for caching date?
+            //TODO: Should this maybe be saved as meta to keep this field for caching date?
+            'post_date_gmt' => $item->publishedAt()->format('Y-m-d H:i:s'),
             'post_content'  => $item->body(),
             'post_title'    => $item->title(),
             'post_status'   => 'publish',
@@ -161,7 +162,6 @@ class PostTypeCache implements Storage
                 'posts_per_page'         => 1,
                 'no_found_rows'          => true,
                 'cache_results'          => true,
-                //'update_post_meta_cache' => false,
                 'update_post_term_cache' => false,
                 'lazy_load_term_meta'    => false,
             )

@@ -36,6 +36,7 @@
         "files": ["inc/functions.php"]
     },
   "scripts": {
-    "phpcs": "phpcs --standard=phpcs.xml.dist"
+    "phpcs": "phpcs -s",
+    "phpcbf": "phpcbf"
   }
 }

@@ -51,6 +51,7 @@ class AttachmentHelper
 
         $postData = array(
             'post_title' => sprintf(
+                /* translators: %s: post id. */
                 __('Thumbnail for BetterEmbed "%s"', 'betterembed'),
                 $parent
             ),

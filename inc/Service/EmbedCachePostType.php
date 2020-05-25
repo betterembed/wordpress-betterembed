@@ -37,7 +37,7 @@ class EmbedCachePostType implements Service
          * @param int $enabled If the UI is enabled. Default `false`.
          */
         $showUi = (bool) apply_filters(
-            $this->plugin->namespace('showUI'),
+            $this->plugin->namespace('showui'),
             ( defined('BETTEREMBED_DEBUG') && BETTEREMBED_DEBUG )
         );
 

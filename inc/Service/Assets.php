@@ -34,7 +34,8 @@ class Assets implements Service
             $this->plugin->prefix('editor'),
             $this->assetUrl('index.js'),
             $assetFile['dependencies'],
-            $assetFile['version']
+            $assetFile['version'],
+            false
         );
 
         if (function_exists('wp_set_script_translations')) {
