@@ -44,11 +44,11 @@
 	    <exclude name="WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound"/>
 	    <exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
 	    <exclude name="WordPress.PHP.DisallowShortTernary.Found"/>
+	    <exclude name="WordPress.WhiteSpace.ControlStructureSpacing"/>
+	    <exclude name="WordPress.WhiteSpace.OperatorSpacing"/>
 	    <exclude name="Generic.WhiteSpace.DisallowSpaceIndent.SpacesUsed"/>
 	    <exclude name="Generic.Classes.OpeningBraceSameLine"/>
 	    <exclude name="Squiz.Functions.MultiLineFunctionDeclaration.BraceOnSameLine"/>
-	    <exclude name="WordPress.WhiteSpace.OperatorSpacing"/>
-	    <exclude name="WordPress.WhiteSpace.ControlStructureSpacing"/>
 	    <exclude name="PEAR.Functions.FunctionCallSignature"/>
 	</rule>
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">

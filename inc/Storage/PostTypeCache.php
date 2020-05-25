@@ -5,6 +5,7 @@ namespace BetterEmbed\WordPress\Storage;
 use BetterEmbed\WordPress\Api\Api;
 use BetterEmbed\WordPress\Exception\BetterEmbedException;
 use BetterEmbed\WordPress\Exception\FailedToCreateCache;
+use BetterEmbed\WordPress\Exception\FailedToDownloadUrl;
 use BetterEmbed\WordPress\Exception\FailedToGetItem;
 use BetterEmbed\WordPress\Model\Item;
 use BetterEmbed\WordPress\Util\AttachmentHelper;
@@ -38,7 +39,12 @@ class PostTypeCache implements Storage
         $cacheId = $this->getCacheForUrl($url);
 
         if (is_null($cacheId)) {
-            $item = $this->api->getItem($url);
+            try {
+                $item = $this->api->getItem($url);
+            } catch (FailedToDownloadUrl $exception) {
+                throw FailedToGetItem::fromApiException($url, $exception);
+            }
+
             try {
                 $cacheId = $this->saveItem($item);
             } catch (FailedToCreateCache $exception) {
@@ -123,7 +129,10 @@ class PostTypeCache implements Storage
         $thumbnailUrl = get_the_post_thumbnail_url($cacheId) ?? '';
         $authorName   = get_post_meta($cacheId, 'authorName', true) ?? '';
         $authorUrl    = get_post_meta($cacheId, 'authorUrl', true) ?? '';
-        $publishedAt  = get_post_datetime($cacheId, 'date', 'gmt')->format('c');
+
+        $publishedAt = get_post_datetime($cacheId, 'date', 'gmt');
+        $publishedAt = $publishedAt ? $publishedAt->format('c') : '';
+        $publishedAt = $publishedAt ?? '';
 
         return new Item(
             $url,

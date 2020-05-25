@@ -10,6 +10,20 @@ class ProblemDetails
     protected $detail;
 
     /**
+     * ProblemDetails constructor.
+     *
+     * @param $title
+     * @param $status
+     * @param $detail
+     */
+    public function __construct( $title, $status, $detail ) {
+        $this->title  = $title;
+        $this->status = $status;
+        $this->detail = $detail;
+    }
+
+
+    /**
      * @return string
      */
     public function title() {

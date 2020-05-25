@@ -23,6 +23,18 @@ class Item
 
     protected $publishedAt;
 
+    /**
+     * Item constructor.
+     *
+     * @param string $url
+     * @param string $itemType
+     * @param string $title
+     * @param string $body
+     * @param string $thumbnailUrl
+     * @param string $authorName
+     * @param string $authorUrl
+     * @param string $publishedAt UTC time
+     */
     public function __construct(
         string $url,
         string $itemType,
@@ -51,8 +63,6 @@ class Item
     }
 
     /**
-     * TODO: Is this from a limited list? Which types are known?
-     *
      * @return string
      */
     public function itemType() {

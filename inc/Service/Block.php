@@ -2,10 +2,10 @@
 
 namespace BetterEmbed\WordPress\Service;
 
-use BetterEmbed\WordPress\Exception\FailedToGetItem;
 use BetterEmbed\WordPress\Plugin;
 use BetterEmbed\WordPress\Storage\Storage;
 use BetterEmbed\WordPress\View\TemplateView;
+use Exception;
 
 use function BetterEmbed\WordPress\be_reset_item_data;
 use function BetterEmbed\WordPress\be_setup_item_data;
@@ -52,7 +52,7 @@ class Block implements Service
 
                     try {
                         $item = $this->storage->getItemFromUrl($attributes['url']);
-                    } catch (FailedToGetItem $exception) {
+                    } catch (Exception $exception) {
                         return $content;
                     }
 

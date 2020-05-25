@@ -3,6 +3,8 @@
 namespace BetterEmbed\WordPress\Storage;
 
 use BetterEmbed\WordPress\Api\Api;
+use BetterEmbed\WordPress\Exception\FailedToDownloadUrl;
+use BetterEmbed\WordPress\Exception\FailedToGetItem;
 use BetterEmbed\WordPress\Model\Item;
 
 class NoCache implements Storage
@@ -17,7 +19,11 @@ class NoCache implements Storage
 
     public function getItemFromUrl( string $url ): Item {
 
-        $item = $this->api->getItem($url);
+        try {
+            $item = $this->api->getItem($url);
+        } catch (FailedToDownloadUrl $exception) {
+            throw FailedToGetItem::fromApiException($url, $exception);
+        }
 
         return $item;
     }
