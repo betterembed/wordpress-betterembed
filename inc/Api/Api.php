@@ -62,8 +62,6 @@ class Api {
 			$data['title'] ?? '',
 			$data['body'] ?? '',
 			$data['thumbnailUrl'] ?? '',
-			$data['thumbnailContentType'] ?? '',
-			$data['thumbnailContent'] ?? '',
 			$data['authorName'] ?? '',
 			$data['authorUrl'] ?? '',
 			$data['publishedAt'] ?? ''
