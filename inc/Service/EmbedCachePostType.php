@@ -39,7 +39,7 @@ class EmbedCachePostType implements Service
          */
         $showUi = (bool) apply_filters(
             $this->plugin->namespace('showui'),
-            ( defined('BETTEREMBED_DEBUG') && BETTEREMBED_DEBUG )
+            $this->plugin->betterEmbedDebugEnabled()
         );
 
         register_post_type(

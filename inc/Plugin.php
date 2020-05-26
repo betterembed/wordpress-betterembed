@@ -68,4 +68,13 @@ class Plugin
     public function pluginPath(): string {
         return $this->pluginPath;
     }
+
+    /**
+     * Debug flag that enables some development-only things like enabling the UI for Custom Post Types.
+     *
+     * @return bool
+     */
+    public function betterEmbedDebugEnabled(): bool {
+        return ( defined('BETTEREMBED_DEBUG') && BETTEREMBED_DEBUG );
+    }
 }
