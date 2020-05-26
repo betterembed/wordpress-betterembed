@@ -1,40 +1,42 @@
 {
-    "name": "betterembed/wordpress-betterembed",
-    "description": "BetterEmbed integration for WordPress.",
-    "type": "wordpress-plugin",
-    "license": "GPL-2.0-or-later",
-    "homepage": "https://github.com/betterembed/wordpress-betterembed",
-    "authors": [
-        {
-            "name": "Thomas Kräftner",
-            "email": "thomas@kraftner.com",
-            "homepage": "https://kraftner.com",
-            "role": "Developer"
-        }
-    ],
-    "support": {
-        "issues": "https://github.com/betterembed/wordpress-betterembed/issues",
-        "source": "https://github.com/betterembed/wordpress-betterembed",
-        "docs": "https://acolono.gitbook.io/betterembed/"
+  "name": "betterembed/wordpress-betterembed",
+  "description": "BetterEmbed integration for WordPress.",
+  "type": "wordpress-plugin",
+  "license": "GPL-2.0-or-later",
+  "homepage": "https://github.com/betterembed/wordpress-betterembed",
+  "authors": [
+    {
+      "name": "Thomas Kräftner",
+      "email": "thomas@kraftner.com",
+      "homepage": "https://kraftner.com",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/betterembed/wordpress-betterembed/issues",
+    "source": "https://github.com/betterembed/wordpress-betterembed",
+    "docs": "https://acolono.gitbook.io/betterembed/"
+  },
+  "require": {
+    "php": ">=7.2",
+    "composer/installers": "~1.0",
+    "ext-json": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9",
+    "wp-coding-standards/wpcs": "^2.3",
+    "dealerdirect/phpcodesniffer-composer-installer": "^0.6",
+    "johnpbloch/wordpress-core": "^5.4",
+    "phpcompatibility/phpcompatibility-wp": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "BetterEmbed\\WordPress\\": "inc/"
     },
-    "require" : {
-        "php": ">=7.2",
-        "composer/installers": "~1.0",
-      "ext-json": "*"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^9",
-        "wp-coding-standards/wpcs": "^2.3",
-        "dealerdirect/phpcodesniffer-composer-installer": "^0.6",
-        "johnpbloch/wordpress-core": "^5.4",
-        "phpcompatibility/phpcompatibility-wp": "*"
-    },
-    "autoload": {
-        "psr-4": {
-            "BetterEmbed\\WordPress\\": "inc/"
-        },
-        "files": ["inc/functions.php"]
-    },
+    "files": [
+      "inc/functions.php"
+    ]
+  },
   "scripts": {
     "phpcs": "phpcs -s",
     "phpcbf": "phpcbf"

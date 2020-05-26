@@ -39,6 +39,10 @@ node_modules
 *.sql
 *.tar.gz
 *.zip
+.idea
+postcss.config.js
 docker-compose.yml
 Dockerfile-wordpress
+Dockerfile-wp
 docker-entrypoint.sh
+xdebug.ini

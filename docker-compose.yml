@@ -2,20 +2,6 @@ version: '3.3'
 
 services:
 
-  scripts:
-    image: node:13
-    user: 1000:1000
-    working_dir: /usr/var/app
-    volumes:
-      - .:/usr/var/app/
-    command: npm start
-
-  composer:
-    image: composer
-    user: 1000:1000
-    volumes:
-      - .:/app
-
   wordpress:
     build:
       context: .
@@ -60,7 +46,9 @@ services:
       - PMA_PASSWORD=wp
 
   wp:
-    image: wordpress:cli
+    build:
+      context: .
+      dockerfile: Dockerfile-wp
     user: 1000:1000
     working_dir: /var/www/html/wp-content/plugins/betterembed
     volumes:
@@ -69,6 +57,20 @@ services:
     depends_on:
       - wordpress
       - db
+
+  scripts:
+    image: node:13
+    user: 1000:1000
+    working_dir: /usr/var/app
+    volumes:
+      - .:/usr/var/app/
+    command: npm start
+
+  composer:
+    image: composer
+    user: 1000:1000
+    volumes:
+      - .:/app
 
   tests:
     image: php:7.4-cli
