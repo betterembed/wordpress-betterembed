@@ -30,6 +30,9 @@ class Item
     /** @var string */
     protected $publishedAt;
 
+    /** @var string */
+    protected $align;
+
     /**
      * @param string $url
      * @param string $itemType
@@ -39,6 +42,7 @@ class Item
      * @param string $authorName
      * @param string $authorUrl
      * @param string $publishedAt UTC time
+     * @param string $align
      */
     public function __construct(
         string $url,
@@ -48,7 +52,8 @@ class Item
         string $thumbnailUrl = '',
         string $authorName = '',
         string $authorUrl = '',
-        string $publishedAt = ''
+        string $publishedAt = '',
+        string $align = ''
     ) {
         $this->url          = $url;
         $this->itemType     = $itemType;
@@ -58,6 +63,7 @@ class Item
         $this->authorName   = $authorName;
         $this->authorUrl    = $authorUrl;
         $this->publishedAt  = $publishedAt;
+        $this->align        = $align;
     }
 
     /**
@@ -119,5 +125,19 @@ class Item
         } catch (Exception $exception) {
             return null;
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function publishedAtRaw(): string {
+        return $this->publishedAt;
+    }
+
+    /**
+     * @return string
+     */
+    public function align(): string {
+        return $this->align;
     }
 }

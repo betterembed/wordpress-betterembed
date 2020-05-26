@@ -275,6 +275,34 @@ namespace BetterEmbed\WordPress {
     }
 
     /**
+     * Return the alignment CSS class.
+     *
+     * @see be_the_align() to display this value.
+     *
+     * @return string
+     */
+    function be_get_the_align(): string {
+        $item = Container::currentItem();
+        if (
+            is_null($item)
+            ||
+            !in_array(strtolower($item->align()), array( 'left', 'right', 'center', 'wide' ), true)
+        ) {
+            return '';
+        }
+        return esc_html(sprintf('align%s', strtolower($item->align())));
+    }
+
+    /**
+     * Display the alignment CSS class.
+     *
+     * @see be_get_the_align() to return this value.
+     */
+    function be_the_align() {
+        echo be_get_the_align();
+    }
+
+    /**
      * Return the original embed HTML as determined by WordPress.
      *
      * @see be_the_embed_html() to display this value.

@@ -3,6 +3,7 @@
 namespace BetterEmbed\WordPress\Service;
 
 use BetterEmbed\WordPress\Exception\FailedToGetItem;
+use BetterEmbed\WordPress\Model\Item;
 use BetterEmbed\WordPress\Plugin;
 use BetterEmbed\WordPress\Storage\Storage;
 use BetterEmbed\WordPress\View\TemplateView;
@@ -57,6 +58,20 @@ class Block implements Service
                         }
                     } catch (Exception $exception) {
                         return $content;
+                    }
+
+                    if (!empty($attributes['align'])) {
+                        $item = new Item(
+                            $item->url(),
+                            $item->itemType(),
+                            $item->title(),
+                            $item->body(),
+                            $item->thumbnailUrl(),
+                            $item->authorName(),
+                            $item->authorUrl(),
+                            $item->publishedAtRaw(),
+                            $attributes['align']
+                        );
                     }
 
                     be_setup_item_data($item);

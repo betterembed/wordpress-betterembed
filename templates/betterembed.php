@@ -1,6 +1,7 @@
 <?php
 
-use function BetterEmbed\WordPress\{be_get_the_author_name,
+use function BetterEmbed\WordPress\{be_get_the_align,
+    be_get_the_author_name,
     be_get_the_author_url,
     be_get_the_date,
     be_get_the_embed_html,
@@ -18,9 +19,16 @@ use function BetterEmbed\WordPress\{be_get_the_author_name,
     be_the_title,
     be_the_url};
 
-?>
+    $betterembed_css_classes = implode(' ', array_filter(
+        array(
+            'wp-block-betterembed-embed',
+            'is-provider-' . sanitize_title_with_dashes(be_get_the_item_type()),
+            be_get_the_align(),
+        )
+    ));
+    ?>
 
-<figure class="wp-block-betterembed-embed is-provider-<?php echo esc_attr(sanitize_title_with_dashes(be_get_the_item_type())); ?>">
+<figure class="<?php echo esc_attr($betterembed_css_classes); ?>">
     <div class='wp-block-betterembed-embed__top'>
         <div class="wp-block-betterembed-embed__provider">
             <?php be_the_item_type(); ?>

@@ -68,6 +68,7 @@
     			<element value="be_get_the_author_name"/>
     			<element value="be_get_the_author_url"/>
     			<element value="be_get_the_date"/>
+    			<element value="be_get_the_align"/>
     			<element value="be_get_the_embed_html"/>
     		</property>
     	</properties>
