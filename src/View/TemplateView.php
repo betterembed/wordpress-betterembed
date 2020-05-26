@@ -18,7 +18,7 @@ class TemplateView
         $this->templateFolder = trailingslashit($templateFolder);
     }
 
-    public function render( $file ) {
+    public function render( string $file ) {
 
         $buffer_level = ob_get_level();
 

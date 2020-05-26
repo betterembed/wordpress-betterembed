@@ -4,12 +4,19 @@ namespace BetterEmbed\WordPress;
 
 use BetterEmbed\WordPress\Model\Item;
 
+/**
+ * Global Container class as a replacement for globals.
+ *
+ * Class Container
+ * @package BetterEmbed\WordPress
+ */
 class Container
 {
 
+    /** @var Item */
     protected static $currentItem;
 
-    public static function setCurrentItem( Item $item) {
+    public static function setCurrentItem( Item $item ) {
         self::$currentItem = $item;
     }
 

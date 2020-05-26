@@ -11,9 +11,18 @@ use BetterEmbed\WordPress\Model\ProblemDetails;
 class Api
 {
 
+    /** @var string */
     protected $endpoint;
+
+    /** @var string */
     protected $apiKey;
 
+    /**
+     * @throws InvalidUrl for invalid Endpoint URLs.
+     *
+     * @param string $endpoint
+     * @param string $apiKey
+     */
     public function __construct( string $endpoint, string $apiKey = '' ) {
 
         if (filter_var($endpoint, FILTER_VALIDATE_URL) === false) {
@@ -72,9 +81,9 @@ class Api
     /**
      * @param string $body
      *
-     * @return array
      * @throws BetterEmbedJsonException
      *
+     * @return array
      */
     protected function decodeJsonArray( string $body): array {
 
@@ -90,9 +99,9 @@ class Api
     /**
      * @param string $body
      *
-     * @return ProblemDetails
-     *@throws BetterEmbedJsonException
+     * @throws BetterEmbedJsonException
      *
+     * @return ProblemDetails
      */
     protected function buildProblemDetails( string $body ): ProblemDetails {
 
@@ -115,9 +124,9 @@ class Api
     /**
      * @param string $body
      *
-     * @return Item
      * @throws BetterEmbedJsonException
      *
+     * @return Item
      */
     protected function buildItem( string $body): Item {
 

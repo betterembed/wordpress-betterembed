@@ -2,6 +2,7 @@
 
 namespace BetterEmbed\WordPress;
 
+use BetterEmbed\WordPress\Exception\UnmetRequirement;
 use BetterEmbed\WordPress\Service\Service;
 
 class Plugin
@@ -21,6 +22,15 @@ class Plugin
      * @param Service[] $services
      */
     public function init( array $services) {
+
+        try {
+            $this->checkRequirements();
+        } catch (UnmetRequirement $exception) {
+            if ($this->betterEmbedDebugEnabled()) {
+                throw $exception;
+            }
+            return;
+        }
 
         foreach ($services as $service) {
             if ($service instanceof Service) {
@@ -76,5 +86,19 @@ class Plugin
      */
     public function betterEmbedDebugEnabled(): bool {
         return ( defined('BETTEREMBED_DEBUG') && BETTEREMBED_DEBUG );
+    }
+
+    protected function checkRequirements() {
+        // Abort if PHP < 7.2.0
+        $requiredVersionPHP = '7.2.0';
+        if (version_compare(phpversion(), $requiredVersionPHP, '<')) {
+            throw UnmetRequirement::fromApiException('PHP', $requiredVersionPHP, phpversion());
+        }
+
+        // Abort if WordPress Version < 5.4
+        $requiredVersionWordPress = '5.4.0';
+        if (version_compare($GLOBALS['wp_version'], $requiredVersionWordPress, '<')) {
+            throw UnmetRequirement::fromApiException('WordPress', $requiredVersionWordPress, $GLOBALS['wp_version']);
+        }
     }
 }

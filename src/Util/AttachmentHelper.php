@@ -25,9 +25,9 @@ class AttachmentHelper
      * @throws FailedToDownloadUrl if downloading the file fails.
      * @throws FailedToCreateAttachment if creating an attachment fails.
      *
-     * @return int|null
+     * @return int
      */
-    public static function urlToAttachment( string $url, int $parent): ?int {
+    public static function urlToAttachment( string $url, int $parent): int {
 
         if ($url === '' || ! wp_parse_url($url, PHP_URL_HOST)) {
             throw InvalidUrl::fromUrl($url);
@@ -87,7 +87,7 @@ class AttachmentHelper
 
         if ($headers === false) {
             throw new FailedToDownloadUrl(
-                sprintf('Could not get HTTP headers of url "%s"', 'betterembed')
+                sprintf('Could not get HTTP headers of url "%s"', $url)
             );
         }
 

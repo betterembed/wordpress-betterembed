@@ -10,18 +10,42 @@ class Assets implements Service
     /** @var Plugin */
     protected $plugin;
 
-    public function init( Plugin $plugin) {
+    /** @var string */
+    protected $buildFolderRelative;
+
+    /**
+     * @param string $buildFolderRelative
+     */
+    public function __construct( string $buildFolderRelative ) {
+        $this->buildFolderRelative = trailingslashit($buildFolderRelative);
+    }
+
+    public function init( Plugin $plugin ) {
         $this->plugin = $plugin;
         $this->registerBackend();
         $this->registerFrontend();
     }
 
+    /**
+     * Build a path inside the assets folder based on a filename.
+     *
+     * @param string $filename
+     *
+     * @return string
+     */
     protected function assetPath( string $filename = ''): string {
-        return $this->plugin->pluginPath() . '/assets/build/' . $filename;
+        return $this->plugin->pluginPath() . '/' . $this->buildFolderRelative . $filename;
     }
 
+    /**
+     * Build a URL inside the assets folder based on a filename.
+     *
+     * @param string $filename
+     *
+     * @return string
+     */
     protected function assetUrl( string $filename = ''): string {
-        return plugins_url('assets/build/' . $filename, $this->plugin->pluginFile());
+        return plugins_url($this->buildFolderRelative . $filename, $this->plugin->pluginFile());
     }
 
     protected function registerBackend() {
@@ -56,8 +80,6 @@ class Assets implements Service
     }
 
     protected function registerFrontend() {
-
-        $pluginFile = $this->plugin->pluginFile();
 
         wp_register_script(
             $this->plugin->prefix('frontend'),

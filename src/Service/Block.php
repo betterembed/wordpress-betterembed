@@ -2,6 +2,7 @@
 
 namespace BetterEmbed\WordPress\Service;
 
+use BetterEmbed\WordPress\Exception\FailedToGetItem;
 use BetterEmbed\WordPress\Plugin;
 use BetterEmbed\WordPress\Storage\Storage;
 use BetterEmbed\WordPress\View\TemplateView;
@@ -27,16 +28,12 @@ class Block implements Service
         $this->view    = $view;
     }
 
-    public function init( Plugin $plugin) {
+    public function init( Plugin $plugin ) {
         $this->plugin = $plugin;
         $this->registerBlock();
     }
 
     protected function registerBlock() {
-
-        if (! function_exists('register_block_type')) {
-            return;
-        }
 
         register_block_type(
             $this->plugin->namespace('embed'),
@@ -52,6 +49,12 @@ class Block implements Service
 
                     try {
                         $item = $this->storage->getItemFromUrl($attributes['url']);
+                    } catch (FailedToGetItem $exception) {
+                        if ($this->plugin->betterEmbedDebugEnabled()) {
+                            return $this->view->render('error.php');
+                        } else {
+                            return $content;
+                        }
                     } catch (Exception $exception) {
                         return $content;
                     }

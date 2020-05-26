@@ -30,6 +30,8 @@ class PostTypeCache implements Storage
     /**
      * @see \WP_Embed::shortcode()
      *
+     * @throws FailedToGetItem
+     *
      * @param string $url
      *
      * @return Item
@@ -85,7 +87,7 @@ class PostTypeCache implements Storage
         if ($item->thumbnailUrl() !== '') {
             try {
                 $this->importThumbnail($item->thumbnailUrl(), $postId);
-            } catch (BetterEmbedException $exception) {
+            } catch (FailedToCreateCache $exception) {
                 wp_delete_post($postId);
                 throw FailedToCreateCache::fromException($item->url(), $exception);
             }
@@ -109,9 +111,21 @@ class PostTypeCache implements Storage
         return $postId;
     }
 
+    /**
+     * @throws FailedToCreateCache
+     *
+     * @param string $url
+     * @param int $itemAttachmentPostId
+
+     * @return int
+     */
     protected function importThumbnail( string $url, int $itemAttachmentPostId) {
 
-        $attachmentId = AttachmentHelper::urlToAttachment($url, $itemAttachmentPostId);
+        try {
+            $attachmentId = AttachmentHelper::urlToAttachment($url, $itemAttachmentPostId);
+        } catch (BetterEmbedException $exception) {
+            throw FailedToCreateCache::fromException($url, $exception);
+        }
 
         if (update_post_meta($itemAttachmentPostId, '_thumbnail_id', $attachmentId) === false) {
             throw FailedToCreateCache::fromMeta($url, '_thumbnail_id', $attachmentId);
@@ -120,6 +134,11 @@ class PostTypeCache implements Storage
         return $attachmentId;
     }
 
+    /**
+     * @param int $cacheId
+     *
+     * @return Item
+     */
     protected function buildItem( int $cacheId): Item {
 
         $url          = get_post_meta($cacheId, 'url', true) ?? '';

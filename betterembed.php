@@ -3,8 +3,8 @@
 /**
  * Better Embed
  *
- * @package           BetterEmbed
- * @copyright         2020 Better Embed
+ * @package           BetterEmbed\WordPress
+ * @copyright         2020 BetterEmbed
  * @license           GPL-2.0-or-later
  *
  * @wordpress-plugin
@@ -37,8 +37,9 @@
 
 defined('ABSPATH') || exit;
 
+// Composer Autoloader. If this plugin is used in setup with a global composer autoloader it will be used instead.
 $betterembed_autoloader = __DIR__ . '/vendor/autoload.php';
-if (! file_exists($betterembed_autoloader)) {
+if (! is_readable($betterembed_autoloader)) {
     return false;
 }
 
@@ -50,7 +51,7 @@ function betterembed_init() {
     $plugin = new \BetterEmbed\WordPress\Plugin(__FILE__, 'betterembed');
     $plugin->init(
         array(
-            new \BetterEmbed\WordPress\Service\Assets(),
+            new \BetterEmbed\WordPress\Service\Assets('assets/build/'),
             new \BetterEmbed\WordPress\Service\Block(
                 new \BetterEmbed\WordPress\Storage\PostTypeCache(
                     new \BetterEmbed\WordPress\Api\Api('https://api.betterembed.com/api/v0/item')

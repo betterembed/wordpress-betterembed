@@ -63,7 +63,7 @@
     			<element value="be_get_the_url"/>
     			<element value="be_get_the_item_type"/>
     			<element value="be_get_the_title"/>
-    			<element value="be_get_the_body"/>
+    			<element value="be_get_the_text"/>
     			<element value="be_get_the_thumbnail_url"/>
     			<element value="be_get_the_author_name"/>
     			<element value="be_get_the_author_url"/>

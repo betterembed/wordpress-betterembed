@@ -23,8 +23,8 @@ class InvalidFile extends RuntimeException implements BetterEmbedException
         $message = sprintf(
             'The size "%2$s" of the URL "%1$s" is bigger than the allowed maximum of "%3$s".',
             $url,
-            $size,
-            $maxSize
+            size_format($size),
+            size_format($maxSize)
         );
 
         return new static($message);

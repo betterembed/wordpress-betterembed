@@ -66,11 +66,11 @@ class EmbedCachePostType implements Service
     /**
      * Before deleting a post delete all associated attachments and prevent post deletion on failure.
      *
-     * @param $delete
+     * @param bool|null $delete
      * @param WP_Post $post
      * @param bool $force_delete
      *
-     * @return mixed
+     * @return bool|null
      */
     public function deleteAttachmentsWithPost( $delete, WP_Post $post, bool $force_delete) {
 
@@ -92,7 +92,7 @@ class EmbedCachePostType implements Service
         return $delete;
     }
 
-    protected function postTypeKey() {
+    protected function postTypeKey(): string {
         return $this->plugin->prefix('cache');
     }
 }

@@ -32,7 +32,7 @@ class FailedToCreateCache extends RuntimeException implements BetterEmbedExcepti
     public static function fromException( string $url, BetterEmbedException $exception ) {
 
         $message = sprintf(
-            'Could not create attachment from URL "%1$s". Reason: "%2$s".',
+            'Could not cache URL "%1$s". Reason: "%2$s".',
             $url,
             $exception->getMessage()
         );

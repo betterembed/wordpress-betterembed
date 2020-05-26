@@ -42,7 +42,8 @@ class FailedToDownloadUrl extends RuntimeException implements BetterEmbedExcepti
     public static function fromProblemDetails( string $url, ProblemDetails $problemDetails ) {
 
         $message = sprintf(
-            '(%1$s) (%2$s): (%3$s)',
+            'Could not download URL "%1$s". Reason: (%2$s) %3$s: %4$s',
+            $url,
             $problemDetails->status(),
             $problemDetails->title(),
             $problemDetails->detail()

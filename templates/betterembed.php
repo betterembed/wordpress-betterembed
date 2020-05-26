@@ -10,7 +10,7 @@ use function BetterEmbed\WordPress\{be_get_the_author_name,
     be_get_the_url,
     be_the_author_name,
     be_the_author_url,
-    be_the_body,
+    be_the_text,
     be_the_date,
     be_the_date_human,
     be_the_item_type,
@@ -20,7 +20,6 @@ use function BetterEmbed\WordPress\{be_get_the_author_name,
 
 ?>
 
-<!-- betterembed element -->
 <figure class="wp-block-betterembed-embed is-provider-<?php echo esc_attr(sanitize_title_with_dashes(be_get_the_item_type())); ?>">
     <div class='wp-block-betterembed-embed__top'>
         <div class="wp-block-betterembed-embed__provider">
@@ -76,7 +75,7 @@ use function BetterEmbed\WordPress\{be_get_the_author_name,
 
         <div class="wp-block-betterembed-embed__text">
 
-            <?php be_the_body(); ?>
+            <?php be_the_text(); ?>
 
             <?php if (be_get_the_url()) : ?>
                 <a class="wp-block-betterembed-embed__read-more" href="<?php be_the_url(); ?>" target="_blank" rel="nofollow noopener">

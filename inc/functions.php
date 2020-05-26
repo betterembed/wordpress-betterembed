@@ -12,7 +12,7 @@ namespace BetterEmbed\WordPress {
      *
      * @param Item $item
      */
-    function be_setup_item_data( Item $item) {
+    function be_setup_item_data( Item $item ) {
         Container::setCurrentItem($item);
     }
 
@@ -25,17 +25,21 @@ namespace BetterEmbed\WordPress {
     }
 
     /**
-     * Return the source URL of the embed.
+     * Return the source URL of the embed as returned by the BetterEmbed API.
+     *
+     * @see be_the_url() to display this value.
      *
      * @return string
      */
-    function be_get_the_url() {
+    function be_get_the_url(): string {
         $item = Container::currentItem();
         return is_null($item) ? '' : esc_url($item->url());
     }
 
     /**
-     * Display the source URL of the embed.
+     * Display the source URL of the embed as returned by the BetterEmbed API.
+     *
+     * @see be_get_the_url() to return this value.
      */
     function be_the_url() {
         echo be_get_the_url();
@@ -46,15 +50,19 @@ namespace BetterEmbed\WordPress {
      *
      * @todo Clarify the possible values. Can be the name of a known service or what, the <title>?
      *
+     * @see be_the_item_type() to display this value.
+     *
      * @return string
      */
-    function be_get_the_item_type() {
+    function be_get_the_item_type(): string {
         $item = Container::currentItem();
         return is_null($item) ? '' : esc_html($item->itemType());
     }
 
     /**
      * Display the type of the embed.
+     *
+     * @see be_get_the_item_type() to return this value.
      */
     function be_the_item_type() {
         echo be_get_the_item_type();
@@ -63,15 +71,19 @@ namespace BetterEmbed\WordPress {
     /**
      * Return the title of the embed.
      *
+     * @see be_the_title() to display this value.
+     *
      * @return string
      */
-    function be_get_the_title() {
+    function be_get_the_title(): string {
         $item = Container::currentItem();
         return is_null($item) ? '' : esc_html($item->title());
     }
 
     /**
      * Display the title of the embed.
+     *
+     * @see be_get_the_title() to return this value.
      */
     function be_the_title() {
         echo be_get_the_title();
@@ -80,20 +92,22 @@ namespace BetterEmbed\WordPress {
     /**
      * Return the main text of the embed.
      *
-     * @todo Naming inconsistency: API: `body` | CSS: `betterembed__text`
+     * @see be_get_the_text() to display this value.
      *
      * @return string
      */
-    function be_get_the_body() {
+    function be_get_the_text(): string {
         $item = Container::currentItem();
         return is_null($item) ? '' : esc_html($item->body());
     }
 
     /**
      * Display the main text of the embed.
+     *
+     * @see be_get_the_text() to return this value.
      */
-    function be_the_body() {
-        echo be_get_the_body();
+    function be_the_text() {
+        echo be_get_the_text();
     }
 
     /**
@@ -101,15 +115,19 @@ namespace BetterEmbed\WordPress {
      *
      * @todo Add a privacy switch to make this not return external URLs.
      *
+     * @see be_the_thumbnail_url() to display this value.
+     *
      * @return string
      */
-    function be_get_the_thumbnail_url() {
+    function be_get_the_thumbnail_url(): string {
         $item = Container::currentItem();
         return is_null($item) ? '' : esc_url($item->thumbnailUrl());
     }
 
     /**
      * Display the URL of the embed thumbnail.
+     *
+     * @see be_get_the_thumbnail_url() to return this value.
      */
     function be_the_thumbnail_url() {
         echo be_get_the_thumbnail_url();
@@ -117,14 +135,18 @@ namespace BetterEmbed\WordPress {
 
     /**
      * Display the embed thumbnail.
+     *
+     * @see be_the_thumbnail_url() to display the thumbnail URL.
+     * @see be_get_the_thumbnail_url() to return the thumbnail URL.
      */
     function be_the_thumbnail() {
         $url = be_get_the_thumbnail_url();
 
         if ('' === $url) {
-            return '';
+            return;
         }
 
+        /** @noinspection HtmlUnknownTarget */
         printf(
             '<img src="%s" alt="">',
             $url // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -136,15 +158,19 @@ namespace BetterEmbed\WordPress {
     /**
      * Return the name of the embeds author.
      *
+     * @see be_the_author_name() to display this value.
+     *
      * @return string
      */
-    function be_get_the_author_name() {
+    function be_get_the_author_name(): string {
         $item = Container::currentItem();
         return is_null($item) ? '' : esc_html($item->authorName());
     }
 
     /**
      * Display the name of the embeds author.
+     *
+     * @see be_get_the_author_name() to return this value.
      */
     function be_the_author_name() {
         echo be_get_the_author_name();
@@ -153,38 +179,50 @@ namespace BetterEmbed\WordPress {
     /**
      * Return the URL of the embeds author.
      *
+     * @see be_the_author_url() to display this value.
+     *
      * @return string
      */
-    function be_get_the_author_url() {
+    function be_get_the_author_url(): string {
         $item = Container::currentItem();
         return is_null($item) ? '' : esc_html($item->authorUrl());
     }
 
     /**
      * Display the URL of the embeds author.
+     *
+     * @see be_get_the_author_url() to return this value.
      */
     function be_the_author_url() {
         echo be_get_the_author_url();
     }
 
     /**
-     * Return the publication date of the embed as raw DateTime object.
+     * Return the publication date of the embed as raw DateTime object or null.
      *
-     * @return DateTimeInterface|string
+     * @see be_get_the_date() to return the formatted date.
+     * @see be_the_date() to display the formatted date.
+     * @see be_the_date_human() to display the date formated as human readable time difference to now.
+     *
+     * @return DateTimeInterface|null
      */
-    function be_get_the_datetime() {
+    function be_get_the_datetime(): ?DateTimeInterface {
         $item = Container::currentItem();
-        return is_null($item) ? '' : $item->publishedAt();
+        return $item->publishedAt();
     }
 
     /**
      * Return the publication date of the embed.
      *
+     * @see be_get_the_datetime() to return the raw DateTime object.
+     * @see be_the_date() to display the formatted date.
+     * @see be_the_date_human() to display the date formated as human readable time difference to now.
+     *
      * @param string $format PHP date format defaults to the date_format option if not specified.
      *
      * @return string
      */
-    function be_get_the_date( string $format = '' ) {
+    function be_get_the_date( string $format = '' ): string {
 
         $dateTime = be_get_the_datetime();
 
@@ -204,7 +242,11 @@ namespace BetterEmbed\WordPress {
     /**
      * Display the URL of the embeds author.
      *
-     * @param string $format PHP date format defaults to the date_format option if not specified.
+     * @see be_get_the_datetime() to return the raw DateTime object.
+     * @see be_get_the_date() to return the formatted date.
+     * @see be_the_date_human() to display the date formated as human readable time difference to now.
+     *
+     * @param string $format PHP date format defaults to the `date_format` option if not specified.
      */
     function be_the_date( string $format = '' ) {
         echo be_get_the_date($format);
@@ -213,9 +255,11 @@ namespace BetterEmbed\WordPress {
     /**
      * Display the URL of the embeds author.
      *
-     * @param string $format PHP date format defaults to the date_format option if not specified.
+     * @see be_get_the_datetime() to return the raw DateTime object.
+     * @see be_get_the_date() to return the formatted date.
+     * @see be_the_date() to display the formatted date.
      */
-    function be_the_date_human( string $format = '' ) {
+    function be_the_date_human() {
         $dateTime = be_get_the_datetime();
 
         if ('' === $dateTime) {
@@ -233,9 +277,11 @@ namespace BetterEmbed\WordPress {
     /**
      * Return the original embed HTML as determined by WordPress.
      *
+     * @see be_the_embed_html() to display this value.
+     *
      * @return string
      */
-    function be_get_the_embed_html() {
+    function be_get_the_embed_html(): string {
         $item = Container::currentItem();
 
         if (is_null($item)) {
@@ -269,6 +315,8 @@ namespace BetterEmbed\WordPress {
 
     /**
      * Display the original embed HTML as determined by WordPress.
+     *
+     * @see be_get_the_embed_html() to return this value.
      */
     function be_the_embed_html() {
         echo be_get_the_embed_html();
