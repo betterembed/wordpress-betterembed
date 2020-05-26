@@ -1,9 +1,12 @@
 import { __ } from '@wordpress/i18n';
 import { registerBlockType } from '@wordpress/blocks';
 
+import '@wordpress/edit-post';
+
 import icon from './icon';
 import edit from './edit';
 import save from './save';
+import { default as transforms, addEmbedsFrom } from './transforms';
 
 registerBlockType( 'betterembed/embed', {
 	title: __( 'Better Embed', 'betterembed' ),
@@ -26,4 +29,7 @@ registerBlockType( 'betterembed/embed', {
 	},
 	edit,
 	save,
+	transforms,
 } );
+
+wp.domReady( addEmbedsFrom );
