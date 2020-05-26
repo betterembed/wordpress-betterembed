@@ -1,11 +1,12 @@
 import createBlock from '@wordpress/blocks';
 import { renderToString, Component } from '@wordpress/element';
+import { Disabled } from '@wordpress/components';
 import ServerSideRender from '@wordpress/server-side-render';
 
 import EmbedControls from './embed-controls';
 import EmbedPlaceholder from './embed-placeholder';
 import icon from './icon';
-import { fallback } from './util';
+//import { fallback } from './util';
 
 export default class BetterEmbed extends Component {
 	constructor() {
@@ -64,28 +65,33 @@ export default class BetterEmbed extends Component {
 					showEditButton={ true }
 					switchBackToURLInput={ this.switchBackToURLInput }
 				/>
-				<ServerSideRender
-					block="betterembed/embed"
-					attributes={ attributes }
-					EmptyResponsePlaceholder={ () => {
-						return (
-							<EmbedPlaceholder
-								icon={ icon }
-								label={ 'Better Embed' }
-								onSubmit={ this.setUrl }
-								value={ url }
-								cannotEmbed={ true }
-								onChange={ ( event ) =>
-									this.setState( { url: event.target.value } )
-								}
-								tryAgain={ this.setUrl }
-								fallback={ () =>
-									fallback( url, this.props.onReplace )
-								}
-							/>
-						);
-					} }
-				/>
+				<Disabled>
+					<ServerSideRender
+						block="betterembed/embed"
+						attributes={ attributes }
+						/*
+                        //TODO: Disabled until clear why this triggers a fetch from the server on focus change.
+                        EmptyResponsePlaceholder={ () => {
+                            return (
+                                <EmbedPlaceholder
+                                    icon={ icon }
+                                    label={ 'Better Embed' }
+                                    onSubmit={ this.setUrl }
+                                    value={ url }
+                                    cannotEmbed={ true }
+                                    onChange={ ( event ) =>
+                                        this.setState( { url: event.target.value } )
+                                    }
+                                    tryAgain={ this.setUrl }
+                                    fallback={ () =>
+                                        fallback( url, this.props.onReplace )
+                                    }
+                                />
+                            );
+                        } }
+                        */
+					/>
+				</Disabled>
 			</>
 		);
 	}
