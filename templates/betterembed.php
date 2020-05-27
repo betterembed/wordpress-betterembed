@@ -11,6 +11,7 @@ use function BetterEmbed\WordPress\{be_get_the_align,
     be_get_the_url,
     be_the_author_name,
     be_the_author_url,
+    be_the_dialog,
     be_the_text,
     be_the_date,
     be_the_date_human,
@@ -43,19 +44,8 @@ use function BetterEmbed\WordPress\{be_get_the_align,
             </span>
         </button>
         <div class="wp-block-betterembed-embed__dialog">
-            <p>
-                <?php
-                echo esc_html(
-                    __(
-                        'With a click on the link below, the original content will be loaded. This can include remote content and you can possibly be tracked from the original provider.',
-                        'betterembed'
-                    )
-                );
-                ?>
-            </p>
-            <p>
-                <strong>{{ Text should be adapted for your GDPR needs }}</strong>
-            </p>
+
+            <?php be_the_dialog(); ?>
 
             <button type='button' class='wp-block-betterembed-embed__load-remote'>
                 <?php echo esc_html(__('show original content', 'betterembed')); ?>

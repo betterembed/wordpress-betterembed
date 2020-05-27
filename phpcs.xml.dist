@@ -41,6 +41,7 @@
 		<exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
         <exclude name="WordPress.NamingConventions.ValidVariableName"/>
 	    <exclude name="WordPress.NamingConventions.ValidFunctionName"/>
+	    <exclude name="WordPress.NamingConventions.ValidHookName.UseUnderscores"/>
 	    <exclude name="WordPress.NamingConventions.PrefixAllGlobals.DynamicHooknameFound"/>
 	    <exclude name="WordPress.PHP.YodaConditions.NotYoda"/>
 	    <exclude name="WordPress.PHP.DisallowShortTernary.Found"/>
@@ -69,6 +70,7 @@
     			<element value="be_get_the_author_url"/>
     			<element value="be_get_the_date"/>
     			<element value="be_get_the_align"/>
+    			<element value="be_get_the_dialog"/>
     			<element value="be_get_the_embed_html"/>
     		</property>
     	</properties>

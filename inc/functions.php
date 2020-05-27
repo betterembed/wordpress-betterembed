@@ -303,6 +303,61 @@ namespace BetterEmbed\WordPress {
     }
 
     /**
+     * Return the warning dialog for loading the original.
+     *
+     * @see be_the_dialog() to display this value.
+     *
+     * @return string
+     */
+    function be_get_the_dialog(): string {
+
+        $default = __(
+            'With a click on the link below, the original content will be loaded. This can include remote content and you can possibly be tracked from the original provider.', // phpcs:ignore Generic.Files.LineLength.TooLong
+            'betterembed'
+        );
+
+        /**
+         * Filter the dialog message that is displayed before showing the original embed.
+         *
+         * @since 0.0.1-alpha1
+         *
+         * @param string $default
+         */
+        $dialog = apply_filters(
+            'betterembed/dialog_text',
+            $default
+        );
+
+        $allowedTags = array(
+            'a'      => array(
+                'href' => array(),
+            ),
+            'br'     => array(),
+            'em'     => array(),
+            'strong' => array(),
+            'p'      => array(),
+        );
+
+        $dialog = make_clickable($dialog);
+        $dialog = convert_chars($dialog);
+        $dialog = force_balance_tags($dialog);
+        $dialog = wpautop($dialog);
+
+        $dialog = wp_kses($dialog, $allowedTags);
+
+        return $dialog;
+    }
+
+    /**
+     * Display the warning dialog for loading the original.
+     *
+     * @see be_get_the_dialog() to return this value.
+     */
+    function be_the_dialog() {
+        echo be_get_the_dialog();
+    }
+
+    /**
      * Return the original embed HTML as determined by WordPress.
      *
      * @see be_the_embed_html() to display this value.
