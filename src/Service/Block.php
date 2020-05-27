@@ -43,42 +43,7 @@ class Block implements Service
                 'script'          => $this->plugin->prefix('frontend'),
                 'editor_style'    => $this->plugin->prefix('editor'),
                 'editor_script'   => $this->plugin->prefix('editor'),
-                'render_callback' => function ( $attributes, $content ) {
-                    if (empty($attributes['url']) || filter_var($attributes['url'], FILTER_VALIDATE_URL) === false) {
-                        return $this->view->render('error.php');
-                    }
-
-                    try {
-                        $item = $this->storage->getItemFromUrl($attributes['url']);
-                    } catch (FailedToGetItem $exception) {
-                        if ($this->plugin->betterEmbedDebugEnabled()) {
-                            return $this->view->render('error.php');
-                        } else {
-                            return $content;
-                        }
-                    } catch (Exception $exception) {
-                        return $content;
-                    }
-
-                    if (!empty($attributes['align'])) {
-                        $item = new Item(
-                            $item->url(),
-                            $item->itemType(),
-                            $item->title(),
-                            $item->body(),
-                            $item->thumbnailUrl(),
-                            $item->authorName(),
-                            $item->authorUrl(),
-                            $item->publishedAtRaw(),
-                            $attributes['align']
-                        );
-                    }
-
-                    be_setup_item_data($item);
-                    $html = $this->view->render($this->plugin->namespace() . '.php');
-                    be_reset_item_data();
-                    return $html;
-                },
+                'render_callback' => array( $this, 'render' ),
                 'attributes'      => array(
                     'align'     => array(
                         'type'    => 'string',
@@ -95,5 +60,50 @@ class Block implements Service
                 ),
             )
         );
+    }
+
+    /**
+     * Render the block.
+     *
+     * @param array $attributes
+     * @param string $content
+     *
+     * @return string
+     */
+    public function render( array $attributes, string $content) {
+        if (empty($attributes['url']) || filter_var($attributes['url'], FILTER_VALIDATE_URL) === false) {
+            return $this->view->render('error.php');
+        }
+
+        try {
+            $item = $this->storage->getItemFromUrl($attributes['url']);
+        } catch (FailedToGetItem $exception) {
+            if ($this->plugin->betterEmbedDebugEnabled()) {
+                return $this->view->render('error.php');
+            } else {
+                return $content;
+            }
+        } catch (Exception $exception) {
+            return $content;
+        }
+
+        if (!empty($attributes['align'])) {
+            $item = new Item(
+                $item->url(),
+                $item->itemType(),
+                $item->title(),
+                $item->body(),
+                $item->thumbnailUrl(),
+                $item->authorName(),
+                $item->authorUrl(),
+                $item->publishedAtRaw(),
+                $attributes['align']
+            );
+        }
+
+        be_setup_item_data($item);
+        $html = $this->view->render($this->plugin->namespace() . '.php');
+        be_reset_item_data();
+        return $html;
     }
 }

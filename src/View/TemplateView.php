@@ -18,6 +18,11 @@ class TemplateView
         $this->templateFolder = trailingslashit($templateFolder);
     }
 
+    /**
+     * @param string $file
+     *
+     * @return string
+     */
     public function render( string $file ) {
 
         $buffer_level = ob_get_level();
