@@ -27,7 +27,8 @@
     "wp-coding-standards/wpcs": "^2.3",
     "dealerdirect/phpcodesniffer-composer-installer": "^0.6",
     "johnpbloch/wordpress-core": "^5.4",
-    "phpcompatibility/phpcompatibility-wp": "*"
+    "phpcompatibility/phpcompatibility-wp": "*",
+    "brain/monkey": "^2.4"
   },
   "autoload": {
     "psr-4": {
@@ -37,8 +38,14 @@
       "inc/functions.php"
     ]
   },
+  "autoload-dev": {
+    "psr-4": {
+      "BetterEmbed\\WordPress\\Tests\\": "tests/"
+    }
+  },
   "scripts": {
     "phpcs": "phpcs -s",
-    "phpcbf": "phpcbf"
+    "phpcbf": "phpcbf",
+    "phpunit": "phpunit tests"
   }
 }
