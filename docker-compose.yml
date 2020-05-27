@@ -49,7 +49,8 @@ services:
     build:
       context: ./docker
       dockerfile: Dockerfile-wp
-    user: 1000:1000
+    # https://github.com/docker-library/docs/tree/master/wordpress#running-as-an-arbitrary-user
+    user: "33:33"
     working_dir: /var/www/html/wp-content/plugins/betterembed
     volumes:
       - wordpress:/var/www/html

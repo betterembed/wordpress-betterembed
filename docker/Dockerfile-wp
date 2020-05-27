@@ -6,6 +6,6 @@ ENV HOME /tmp
 ENV PHP_INI_MEMORY_LIMIT 256M
 RUN echo 'memory_limit = ${PHP_INI_MEMORY_LIMIT}' > "$PHP_INI_DIR/php.ini"
 
-USER www-data
+USER 33
 
 RUN wp package install wp-cli/dist-archive-command
