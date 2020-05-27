@@ -97,9 +97,13 @@ A lot of errors can even be fixed automatically:
 
 ### Running Tests with PHPUnit
 
-You can run tests for the PHP code using PHPUnit:
+To run the tests you need to initialize the testing instance environment once:
 
-     docker-compose run --rm tests
+    docker-compose run --rm tests bash docker/bootstrap-tests.sh
+
+After that you can run tests for the PHP code using PHPUnit:
+
+    docker-compose run --rm tests
 
 ## License
 

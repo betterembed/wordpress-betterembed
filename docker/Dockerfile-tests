@@ -1,0 +1,6 @@
+FROM wordpress:5.4.1-php7.3-apache
+
+RUN apt-get update \
+    && apt-get install -y \
+      subversion \
+      default-mysql-client
