@@ -58,7 +58,7 @@ class EmbedCachePostType implements Service
                 'query_var'        => false,
                 'delete_with_user' => false,
                 'can_export'       => false,
-                'supports'         => array(),
+                'supports'         => array( 'title', 'editor', 'thumbnail' ),
             )
         );
     }
