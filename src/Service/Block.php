@@ -104,6 +104,9 @@ class Block implements Service
         be_setup_item_data($item);
         $html = $this->view->render($this->plugin->namespace() . '.php');
         be_reset_item_data();
+        if ($html === '') {
+            return $this->view->render('error.php');
+        }
         return $html;
     }
 }
