@@ -108,4 +108,15 @@ class BlockTest extends WpTestCase
         $block->init($plugin);
         $block->render(array( 'url' => $url ), '');
     }
+
+    public function tearDown() {
+        parent::tearDown();
+
+        $registry   = WP_Block_Type_Registry::get_instance();
+        $block_name = 'betterembed/embed';
+
+        if ($registry->is_registered($block_name)) {
+            $registry->unregister($block_name);
+        }
+    }
 }
