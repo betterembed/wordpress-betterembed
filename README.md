@@ -4,10 +4,11 @@
 
 ## Installation
 
-### Composer (recommended)
+### Composer
 
-Since the plugin is currently still under development you can only install it with [Composer](https://getcomposer.org/)
-with something similar to this:
+Since the plugin is currently still under development you can only install it with [Composer](https://getcomposer.org/).
+
+If you're managing your whole stack with Composer you'll need to add the Github repository with something like this:
 
     {
         "repositories": [
@@ -20,24 +21,30 @@ with something similar to this:
             "betterembed/wordpress-betterembed": "*"
         }
     }
+
 Please consult the [Composer documentation](https://getcomposer.org/doc/05-repositories.md#loading-a-package-from-a-vcs-repository)
 on how to require from github.
 
-Later this plugin will probably be published as a package on [Packagist](https://packagist.org/) as
-`betterembed/wordpress-betterembed` as well as on [wordpress.org](https://wordpress.org).
+If you're not managing your whole stack with Composer download or `git clone` from
+https://github.com/betterembed/wordpress-betterembed and run `composer install --no-dev`.
 
-If you just want to quickly try it have a look at the "Development/Quick Start" section.
+Later this plugin will probably be published as a package on [Packagist](https://packagist.org/)
+as well as a regular plugin on [wordpress.org](https://wordpress.org).
+
+If you just want to quickly try the plugin have a look at the "Development/Quick Start" section.
 
 ## Development
 
-For development, it is recommended to use the included [Docker Compose](https://docs.docker.com/compose/) setup.
+For development and quick testing it is recommended to use the included
+[Docker Compose](https://docs.docker.com/compose/) setup.
 
 It offers a quick and easy way to launch a complete development environment.
 
 ### Quick start
 
-To get yourself up and running quick just run the following command:
+To get yourself up and running quick just run the following commands:
 
+    docker-compose run --rm composer install
     docker-compose run --rm wp bash docker/bootstrap.sh
 
 If everything worked well you should see this line:
