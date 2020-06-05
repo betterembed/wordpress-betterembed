@@ -1,0 +1,4 @@
+FROM node:13
+RUN apt-get update && apt-get install -y php7.0-cli php7.0-mbstring
+# Add WP-CLI
+run curl https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -o /usr/local/bin/wp && chmod +x /usr/local/bin/wp

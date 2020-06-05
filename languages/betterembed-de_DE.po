@@ -1,41 +1,46 @@
-# Copyright (C) 2020 Better Embed
-# This file is distributed under the same license as the Better Embed plugin.
 msgid ""
 msgstr ""
 "Project-Id-Version: Better Embed 0.1.0-alpha.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/app\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2020-06-05T14:26:07+00:00\n"
+"PO-Revision-Date: 2020-06-05 16:34+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-06-05T14:35:54+00:00\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.4.0\n"
+"X-Generator: Poedit 2.0.6\n"
 "X-Domain: betterembed\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. Plugin Name of the plugin
 #. Author of the plugin
 #: assets/build/index.js:1
 msgid "Better Embed"
-msgstr ""
+msgstr "Better Embed"
 
 #. Plugin URI of the plugin
 #. Author URI of the plugin
 msgid "https://www.acolono.com/betterembed"
-msgstr ""
+msgstr "https://www.acolono.com/betterembed"
 
 #. Description of the plugin
-msgid "Embed content from other sites in a privacy friendly, performant and easily themeable way."
+msgid ""
+"Embed content from other sites in a privacy friendly, performant and easily "
+"themeable way."
 msgstr ""
 
 #. translators: %s: Human-readable time difference.
 #: inc/functions.php:273
 msgid "%s ago"
-msgstr ""
+msgstr "vor %s"
 
 #: inc/functions.php:314
-msgid "With a click on the link below, the original content will be loaded. This can include remote content and you can possibly be tracked from the original provider."
+msgid ""
+"With a click on the link below, the original content will be loaded. This "
+"can include remote content and you can possibly be tracked from the original "
+"provider."
 msgstr ""
 
 #: src/Service/EmbedCachePostType.php:49
@@ -57,23 +62,23 @@ msgstr ""
 
 #: templates/betterembed.php:40
 msgid "show original"
-msgstr ""
+msgstr "Original anzeigen"
 
 #: templates/betterembed.php:43
 msgid "hide original"
-msgstr ""
+msgstr "Original verstecken"
 
 #: templates/betterembed.php:51
 msgid "show original content"
-msgstr ""
+msgstr "Originalinhalt anzeigen"
 
 #: templates/betterembed.php:54
 msgid "close"
-msgstr ""
+msgstr "schließen"
 
 #: templates/betterembed.php:80
 msgid "read more"
-msgstr ""
+msgstr "Mehr lesen"
 
 #: templates/error.php:2
 msgid "An error occurred rendering this BetterEmbed."
@@ -82,19 +87,21 @@ msgstr ""
 #: assets/build/index.js:1
 msgid "Paste a link to the content you want to display on your site."
 msgstr ""
+"Füge einen Link zu dem Inhalt ein, den du auf deiner Website anzeigen "
+"möchtest."
 
 #: assets/build/index.js:1
 msgid "Enter URL to embed here…"
-msgstr ""
+msgstr "URL zum Einbetten hier eingeben…"
 
 #: assets/build/index.js:1
 msgctxt "button label"
 msgid "Embed"
-msgstr ""
+msgstr "Einbetten"
 
 #: assets/build/index.js:1
 msgid "Learn more about Better Embed"
-msgstr ""
+msgstr "Mehr über Better Embed erfahren"
 
 #: assets/build/index.js:1
 msgid "Sorry, this content could not be embedded."
@@ -111,5 +118,8 @@ msgid "Convert to link"
 msgstr ""
 
 #: assets/build/index.js:1
-msgid "Include the essential content of any website or service such as Facebook posts, Twitter tweets, Instagram posts, YouTube videos, WordPress Blogposts etc. into your own page without any extra effort."
+msgid ""
+"Include the essential content of any website or service such as Facebook "
+"posts, Twitter tweets, Instagram posts, YouTube videos, WordPress Blogposts "
+"etc. into your own page without any extra effort."
 msgstr ""

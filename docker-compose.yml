@@ -68,7 +68,9 @@ services:
       - db
 
   scripts:
-    image: node:13
+    build:
+      context: ./docker
+      dockerfile: Dockerfile-scripts
     user: 1000:1000
     working_dir: /usr/var/app
     volumes:

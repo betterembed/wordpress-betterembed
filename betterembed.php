@@ -61,8 +61,12 @@ function betterembed_init() {
             new \BetterEmbed\WordPress\Service\EmbedCachePostType(),
         )
     );
-
-    load_plugin_textdomain('betterembed', false, basename(__DIR__) . '/languages');
 }
 
 add_action('init', 'betterembed_init');
+
+function betterembed_textdomain() {
+    load_plugin_textdomain('betterembed', false, basename(__DIR__) . '/languages');
+}
+
+add_action('plugins_loaded', 'betterembed_textdomain');

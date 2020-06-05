@@ -26,7 +26,7 @@ Please consult the [Composer documentation](https://getcomposer.org/doc/05-repos
 on how to require from github.
 
 If you're not managing your whole stack with Composer download or `git clone` from
-https://github.com/betterembed/wordpress-betterembed and run `composer install --no-dev`.
+[Github](https://github.com/betterembed/wordpress-betterembed) and run `composer install --no-dev`.
 
 Later this plugin will probably be published as a package on [Packagist](https://packagist.org/)
 as well as a regular plugin on [wordpress.org](https://wordpress.org).

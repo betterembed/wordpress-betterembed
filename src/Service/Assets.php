@@ -68,7 +68,11 @@ class Assets implements Service
              * plugin_dir_path( MY_PLUGIN ) . 'languages' ) ). For details see
              * https://make.wordpress.org/core/2018/11/09/new-javascript-i18n-support-in-wordpress/
              */
-            wp_set_script_translations($this->plugin->prefix('editor'), 'betterembed');
+            wp_set_script_translations(
+                $this->plugin->prefix('editor'),
+                'betterembed',
+                $this->plugin->pluginPath() . 'languages'
+            );
         }
 
         wp_register_style(
