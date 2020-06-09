@@ -319,7 +319,7 @@ namespace BetterEmbed\WordPress {
         /**
          * Filter the dialog message that is displayed before showing the original embed.
          *
-         * @since 0.0.1-alpha1
+         * @since 0.0.1-alpha.1
          *
          * @param string $default
          */

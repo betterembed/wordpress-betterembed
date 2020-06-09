@@ -11,7 +11,7 @@
  * Plugin Name:       Better Embed
  * Plugin URI:        https://www.acolono.com/betterembed
  * Description:       Embed content from other sites in a privacy friendly, performant and easily themeable way.
- * Version:           0.1.0-alpha.1
+ * Version:           0.1.0-alpha.2
  * Requires at least: 5.4
  * Requires PHP:      7.2
  * Author:            Better Embed

@@ -33,7 +33,7 @@ class EmbedCachePostType implements Service
         /**
          * Enables UI für the Cache Post Type for debugging.
          *
-         * @since 0.0.1-alpha1
+         * @since 0.0.1-alpha.1
          *
          * @param int $enabled If the UI is enabled. Default `false`.
          */
