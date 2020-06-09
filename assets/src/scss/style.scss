@@ -85,6 +85,31 @@
 
 	}
 
+	&__embed {
+		display: none;
+		max-width: 100%;
+
+		iframe {
+			max-width: 100%;
+		}
+
+		// Hacks to make FB Embeds responsive
+		// See https://github.com/WordPress/gutenberg/issues/16948
+		.fb-post {
+
+			&,
+			> span {
+				max-width: 100%;
+			}
+
+		}
+
+		.instagram-media {
+			min-width: auto !important;
+		}
+
+	}
+
 	&__body {
 
 		display: flex;

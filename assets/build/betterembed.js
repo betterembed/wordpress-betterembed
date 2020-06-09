@@ -1,4 +1,4 @@
-(function(){
+(function () {
 	var NAMESPACE = 'wp-block-betterembed-embed';
 
 	var SWITCH_CLASS        = NAMESPACE + '__switch';
@@ -49,14 +49,16 @@
 					var tag = document.createElement('script');
 					if (scriptTag.src) {
 						tag.src = scriptTag.src;
-						blockRoot.appendChild(tag);
+						embedContainer.appendChild(tag);
 					} else {
 						var inlineScript = document.createTextNode(scriptTag.innerHTML);
 						tag.appendChild(inlineScript);
-						blockRoot.appendChild(tag);
+						embedContainer.appendChild(tag);
 					}
+					scriptTag.parentNode.removeChild(scriptTag);
 				});
 			}
+			embedRaw.parentNode.removeChild(embedRaw);
 
 			blockRoot.classList.add(REMOTE_VISIBLE_CLASS);
 			blockRoot.classList	.remove(SHOW_DIALOG_CLASS);
